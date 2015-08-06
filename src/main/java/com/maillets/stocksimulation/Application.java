@@ -20,8 +20,8 @@ public class Application {
 
 		return arg -> {
 
-			RestTemplate template = new RestTemplate();
-			StockQuote obj = template.getForObject("http://dev.markitondemand.com/Api/v2/Quote/json?symbol=AAPL", StockQuote.class);
+			//RestTemplate template = new RestTemplate();
+			//StockQuote obj = template.getForObject("http://dev.markitondemand.com/Api/v2/Quote/json?symbol=AAPL", StockQuote.class);
 			System.out.println("Init done!");
 		};
 	}
