@@ -1,6 +1,6 @@
 package com.maillets.stocksimulation.external;
 
 
-public interface MktDataProvider {
+public interface MktDataProviderExt {
 	StockQuote getStockQuote(String symbol);
 }

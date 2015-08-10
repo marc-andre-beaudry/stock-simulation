@@ -3,6 +3,7 @@ package com.maillets.stocksimulation.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,9 +17,13 @@ public class User {
 	@Id
 	@GeneratedValue
 	private Integer id;
+
+	@Column(nullable = false)
 	private String firstName;
+
+	@Column(nullable = false)
 	private String lastName;
-	
+
 	@OneToMany(mappedBy = "owner")
 	private Set<Account> accounts = new HashSet<>();
 

@@ -23,17 +23,22 @@ public class Account {
 
 	@Column(nullable = false)
 	private String name;
-	private Double balance;
+
+	@Column(nullable = false)
+	private double balance;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ownerId")
 	private User owner;
-	
+
 	@OneToMany(mappedBy = "account")
 	private Set<Order> orders = new HashSet<>();
-	
+
 	@OneToMany(mappedBy = "account")
-	private Set<Trade> trades = new HashSet<>();
+	private Set<Execution> executions = new HashSet<>();
+
+	@OneToMany(mappedBy = "account")
+	private Set<Position> positions = new HashSet<>();
 
 	public Integer getId() {
 		return id;
@@ -65,5 +70,29 @@ public class Account {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+
+	public Set<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
+	}
+
+	public Set<Execution> getExecutions() {
+		return executions;
+	}
+
+	public void setExecutions(Set<Execution> executions) {
+		this.executions = executions;
+	}
+
+	public Set<Position> getPositions() {
+		return positions;
+	}
+
+	public void setPositions(Set<Position> positions) {
+		this.positions = positions;
 	}
 }

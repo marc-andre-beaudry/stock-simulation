@@ -1,65 +1,28 @@
-package com.maillets.stocksimulation.entities;
+package com.maillets.stocksimulation.dto;
 
 import java.time.LocalTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import com.maillets.stocksimulation.entities.Order;
+import com.maillets.stocksimulation.entities.OrderType;
+import com.maillets.stocksimulation.entities.Side;
+import com.maillets.stocksimulation.entities.State;
 
-@Entity
-@Table(name = "order_a") // "order" was causing the grammar parser of h2 to fail...
-public class Order {
+public class OrderDto {
 
-	@Id
-	@GeneratedValue
 	private Integer id;
-
-	@Column(nullable = false)
 	private String symbol;
-
-	@Column(nullable = false)
 	private int totalQuantity;
-
-	@Column(nullable = false)
 	private int openQuantity;
-
-	@Column(nullable = false)
 	private int filledQuantity;
-
-	@Column(nullable = false)
 	private int canceledQuantity;
-
-	@Column(nullable = false)
 	private Side side;
-
-	@Column(nullable = false)
 	private OrderType orderType;
-
-	@Column(nullable = false)
 	private double avgExecPrice;
-
-	@Column(nullable = false)
 	private double lastExecPrice;
-
-	@Column(nullable = false)
 	private State state;
-
-	@Column(nullable = false)
 	private LocalTime creationTime;
-
 	private LocalTime updateTime;
-
-	@Column(nullable = false)
 	private double commissionCharged;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "accountId")
-	private Account account;
 
 	public Integer getId() {
 		return id;
@@ -173,11 +136,22 @@ public class Order {
 		this.commissionCharged = commissionCharged;
 	}
 
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
+	public static OrderDto fromOrder(Order order) {
+		OrderDto dto = new OrderDto();
+		dto.setAvgExecPrice(order.getAvgExecPrice());
+		dto.setCanceledQuantity(order.getCanceledQuantity());
+		dto.setCommissionCharged(order.getCommissionCharged());
+		dto.setCreationTime(order.getCreationTime());
+		dto.setFilledQuantity(order.getFilledQuantity());
+		dto.setId(order.getId());
+		dto.setLastExecPrice(order.getLastExecPrice());
+		dto.setOpenQuantity(order.getOpenQuantity());
+		dto.setOrderType(order.getOrderType());
+		dto.setSide(order.getSide());
+		dto.setState(order.getState());
+		dto.setSymbol(order.getSymbol());
+		dto.setTotalQuantity(order.getTotalQuantity());
+		dto.setUpdateTime(order.getUpdateTime());
+		return null;
 	}
 }
