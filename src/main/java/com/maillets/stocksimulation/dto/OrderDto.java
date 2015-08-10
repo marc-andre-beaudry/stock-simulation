@@ -152,6 +152,6 @@ public class OrderDto {
 		dto.setSymbol(order.getSymbol());
 		dto.setTotalQuantity(order.getTotalQuantity());
 		dto.setUpdateTime(order.getUpdateTime());
-		return null;
+		return dto;
 	}
 }

@@ -35,12 +35,13 @@ public class AccountController {
 	private OrderBooker orderBooker;
 
 	@RequestMapping(value = "", method = { RequestMethod.GET })
-	public void getAccounts() {
+	public List<AccountDto> getAccounts() {
 		List<Account> accounts = accountRepository.findAll();
 		List<AccountDto> dtos = new ArrayList<>();
 		for (Account account : accounts) {
 			dtos.add(AccountDto.fromAccount(account));
 		}
+		return dtos;
 	}
 
 	@RequestMapping(value = "/{accountId}", method = { RequestMethod.GET })
@@ -70,7 +71,8 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/{accountId}/orders/{orderId}", method = { RequestMethod.GET })
-	public OrderDto getAccountOrder(@PathVariable(value = "accountId") String accountId, @PathVariable(value = "orderId") String orderId) {
+	public OrderDto getAccountOrder(@PathVariable(value = "accountId") String accountId,
+			@PathVariable(value = "orderId") String orderId) {
 		Account account = validateAndGetPlayer(accountId);
 		int parsedOrderId = validateAndParseInt(orderId);
 		Optional<Order> order = account.getOrders().stream().filter(x -> x.getId() == parsedOrderId).findFirst();
@@ -104,7 +106,8 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/{accountId}/orders/{orderId}", method = { RequestMethod.DELETE })
-	public void deleteOrder(@PathVariable(value = "accountId") String accountId, @PathVariable(value = "orderId") String orderId) {
+	public void deleteOrder(@PathVariable(value = "accountId") String accountId,
+			@PathVariable(value = "orderId") String orderId) {
 		Account account = validateAndGetPlayer(accountId);
 		throw new UnsupportedOperationException();
 	}

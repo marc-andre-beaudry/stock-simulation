@@ -8,7 +8,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import com.maillets.stocksimulation.dto.OrderDto;
 import com.maillets.stocksimulation.entities.Account;
+import com.maillets.stocksimulation.entities.OrderType;
+import com.maillets.stocksimulation.entities.Side;
 import com.maillets.stocksimulation.entities.User;
 import com.maillets.stocksimulation.model.CommissionModel;
 import com.maillets.stocksimulation.model.CommissionModelImpl;
@@ -71,7 +74,21 @@ public class Application {
 				account.setBalance(10000d);
 				account.setOwner(user);
 				account = accountRepository.saveAndFlush(account);
+				
+				OrderDto dto = new OrderDto();
+				dto.setSide(Side.Buy);
+				dto.setOrderType(OrderType.Market);
+				dto.setOpenQuantity(100);
+				dto.setSymbol("AAPL");
+				orderBooker.bookOrder(account, dto);
 
+				OrderDto dto2 = new OrderDto();
+				dto2.setSide(Side.Buy);
+				dto2.setOrderType(OrderType.Market);
+				dto2.setOpenQuantity(100);
+				dto2.setSymbol("AAPL");
+				orderBooker.bookOrder(account, dto2);
+				
 				// RestTemplate template = new RestTemplate();
 				// StockQuote obj =
 				// template.getForObject("http://dev.markitondemand.com/Api/v2/Quote/json?symbol=AAPL",

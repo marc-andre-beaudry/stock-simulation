@@ -1,3 +1,45 @@
-App.controller('accountController', function($scope, $http, $location, $routeParams) {		
-	$scope.display = "Hello";
+App.factory('accountService', function($http){
+    return {
+    	getAccounts: function() {
+    		return $http.get('/api/account');
+    	}
+        getPositions: function(accountId) {
+    		return $http.get('/api/account/' + accountId + '/positions');
+    	}
+    	getOrders: function(accountId) {
+    		return $http.get('/api/account/' + accountId + '/orders');
+    	}
+    	getExecutions: function(accountId) {
+    		return $http.get('/api/account/' + accountId + '/executions');
+    	}
+    };
+});
+
+App.controller('accountController', function($scope, $http, $location,
+		$routeParams, accountService) {
+	$scope.accounts = [];
+	$scope.positions = [];
+	$scope.orders = [];
+	$scope.executions = [];
+
+	var handleGetAccountsSuccess = function(data, status) {
+		$scope.accounts = data;
+	};
+	var handleGetPositionsSuccess = function(data, status) {
+		for(var i = 0; i < data.length; i++) {
+			$scope.positions.push(data[i]);
+		}
+	};
+	var handleGetOrdersSuccess = function(data, status) {
+		for(var i = 0; i < data.length; i++) {
+			$scope.orders.push(data[i]);
+		}
+	};
+	var handleGetExecutionsSuccess = function(data, status) {
+		for(var i = 0; i < data.length; i++) {
+			$scope.executions.push(data[i]);
+		}
+	};
+
+	accountService.getAccounts().success(handleGetAccountsSuccess);
 });

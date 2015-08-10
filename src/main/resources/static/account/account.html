@@ -1,1 +1,89 @@
-<h1>My Accounts</h1>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">My Accounts</h3>
+	</div>
+	<div class="panel-body">
+		<table class="table table-hover table-striped">
+			<tr>
+				<th>#</th>
+				<th>Name</th>
+				<th>Balance</th>
+			</tr>
+			<tr ng-repeat='account in accounts'>
+				<td>{{account.id}}</td>
+				<td>{{account.name}}</td>
+				<td>{{account.balance}}</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">My Positions</h3>
+	</div>
+	<div class="panel-body">
+		<table class="table table-hover table-striped">
+			<tr>
+				<th>Symbol</th>
+				<th>Qty</th>
+				<th>Avg Price</th>
+			</tr>
+			<tr ng-repeat='position in positions'>
+				<td>{{position.symbol}}</td>
+				<td>{{position.openQuantity}}</td>
+				<td>{{position.averageEntryPrice}}</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">My Orders</h3>
+	</div>
+	<div class="panel-body">
+		<table class="table table-hover table-striped">
+			<tr>
+				<th>#</th>
+				<th>Side</th>
+				<th>Type</th>
+				<th>Symbol</th>
+				<th>Qty</th>
+				<th>Avg Price</th>
+			</tr>
+			<tr ng-repeat='order in orders'>
+				<td>{{order.id}}</td>
+				<td>{{order.side}}</td>
+				<td>{{order.orderType}}</td>
+				<td>{{order.symbol}}</td>
+				<td>{{order.totalQuantity}}</td>
+				<td>{{order.avgExecPrice}}</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">My Executions</h3>
+	</div>
+	<div class="panel-body">
+		<table class="table table-hover table-striped">
+			<tr>
+				<th>#</th>
+				<th>Side</th>
+				<th>Symbol</th>
+				<th>Qty</th>
+				<th>Price</th>
+			</tr>
+			<tr ng-repeat='execution in executions'>
+				<td>{{execution.id}}</td>
+				<td>{{execution.side}}</td>
+				<td>{{execution.symbol}}</td>
+				<td>{{execution.quantity}}</td>
+				<td>{{execution.price}}</td>
+			</tr>
+		</table>
+	</div>
+</div>
