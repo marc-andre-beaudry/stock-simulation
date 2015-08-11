@@ -1,7 +1,10 @@
 package com.maillets.stocksimulation;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -17,6 +20,7 @@ import com.maillets.stocksimulation.entities.OrderType;
 import com.maillets.stocksimulation.entities.Side;
 import com.maillets.stocksimulation.entities.Stock;
 import com.maillets.stocksimulation.entities.User;
+import com.maillets.stocksimulation.entities.WatchList;
 import com.maillets.stocksimulation.model.CommissionModel;
 import com.maillets.stocksimulation.model.CommissionModelImpl;
 import com.maillets.stocksimulation.model.MktDataProvider;
@@ -29,6 +33,7 @@ import com.maillets.stocksimulation.repository.OrderRepository;
 import com.maillets.stocksimulation.repository.PositionRepository;
 import com.maillets.stocksimulation.repository.StockRepository;
 import com.maillets.stocksimulation.repository.UserRepository;
+import com.maillets.stocksimulation.repository.WatchListRepository;
 
 @Configuration
 @ComponentScan
@@ -49,6 +54,9 @@ public class Application {
 	private OrderBooker orderBooker;
 	@Autowired
 	private StockRepository stockRepository;
+	@Autowired
+	private WatchListRepository watchListRepository;
+	private final Comparator<Stock> stockComparatorByMktCap = Comparator.comparing(Stock::getMarketCap);
 
 	@Bean
 	public MktDataProvider mktDataProvider() {
@@ -118,6 +126,16 @@ public class Application {
 				dto3.setOpenQuantity(500);
 				dto3.setSymbol("AAPL");
 				orderBooker.bookOrder(account, dto3);
+				
+				List<Stock> top100Stocks = new ArrayList<Stock>(stockRepository.findAll());
+				Collections.sort(top100Stocks, stockComparatorByMktCap.reversed());
+				
+				WatchList watchList = new WatchList();
+				watchList.setName("Top 100");
+				watchList.setUser(user);
+				watchList.getStocks().addAll(top100Stocks.stream().limit(10).collect(Collectors.toList()));
+				watchListRepository.saveAndFlush(watchList);
+				
 				// RestTemplate template = new RestTemplate();
 				// StockQuote obj =
 				// template.getForObject("http://dev.markitondemand.com/Api/v2/Quote/json?symbol=AAPL",

@@ -4,7 +4,7 @@ public class Company {
 	private String symbol;
 	private String name;
 	private double lastSale;
-	private String marketCap;
+	private double marketCap;
 	private String ipoYear;
 	private String sector;
 	private String industry;
@@ -33,11 +33,11 @@ public class Company {
 		this.lastSale = lastSale;
 	}
 
-	public String getMarketCap() {
+	public double getMarketCap() {
 		return marketCap;
 	}
 
-	public void setMarketCap(String marketCap) {
+	public void setMarketCap(double marketCap) {
 		this.marketCap = marketCap;
 	}
 

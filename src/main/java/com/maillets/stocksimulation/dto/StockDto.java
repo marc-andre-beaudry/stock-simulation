@@ -6,7 +6,7 @@ public class StockDto {
 
 	private String symbol;
 	private String name;
-	private String marketCap;
+	private double marketCap;
 	private String ipoYear;
 	private String sector;
 	private String industry;
@@ -27,11 +27,11 @@ public class StockDto {
 		this.name = name;
 	}
 
-	public String getMarketCap() {
+	public double getMarketCap() {
 		return marketCap;
 	}
 
-	public void setMarketCap(String marketCap) {
+	public void setMarketCap(double marketCap) {
 		this.marketCap = marketCap;
 	}
 
@@ -66,7 +66,7 @@ public class StockDto {
 		dto.setSector(stock.getSector());
 		dto.setIndustry(stock.getIndustry());
 		dto.setIpoYear(stock.getIpoYear());
-		dto.setMarketCap(stock.getMarketCap());
+		dto.setMarketCap((int)(stock.getMarketCap() / 1000000));
 		return dto;
 	}
 }
