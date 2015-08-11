@@ -1,1 +1,0 @@
-Moved Permanently. Redirecting to https://cdn.gitcdn.xyz/cdn/angular/bower-material/a03ac68a4537d229320b75e375da23e0511ce0d8/angular-material.js

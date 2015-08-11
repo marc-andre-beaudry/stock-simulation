@@ -23,6 +23,7 @@ public class OrderDto {
 	private LocalTime creationTime;
 	private LocalTime updateTime;
 	private double commissionCharged;
+	private int accountId;
 
 	public Integer getId() {
 		return id;
@@ -136,6 +137,14 @@ public class OrderDto {
 		this.commissionCharged = commissionCharged;
 	}
 
+	public int getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
+	}
+
 	public static OrderDto fromOrder(Order order) {
 		OrderDto dto = new OrderDto();
 		dto.setAvgExecPrice(order.getAvgExecPrice());
@@ -144,6 +153,7 @@ public class OrderDto {
 		dto.setCreationTime(order.getCreationTime());
 		dto.setFilledQuantity(order.getFilledQuantity());
 		dto.setId(order.getId());
+		dto.setAccountId(order.getAccount().getId());
 		dto.setLastExecPrice(order.getLastExecPrice());
 		dto.setOpenQuantity(order.getOpenQuantity());
 		dto.setOrderType(order.getOrderType());

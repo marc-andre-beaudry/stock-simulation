@@ -64,6 +64,7 @@ public class Application {
 		return arg -> {
 
 			try {
+
 				User user = new User();
 				user.setFirstName("Marc-Andre");
 				user.setLastName("Beaudry");
@@ -74,7 +75,7 @@ public class Application {
 				account.setBalance(10000d);
 				account.setOwner(user);
 				account = accountRepository.saveAndFlush(account);
-				
+
 				OrderDto dto = new OrderDto();
 				dto.setSide(Side.Buy);
 				dto.setOrderType(OrderType.Market);
@@ -85,10 +86,16 @@ public class Application {
 				OrderDto dto2 = new OrderDto();
 				dto2.setSide(Side.Buy);
 				dto2.setOrderType(OrderType.Market);
-				dto2.setOpenQuantity(100);
+				dto2.setOpenQuantity(200);
 				dto2.setSymbol("AAPL");
 				orderBooker.bookOrder(account, dto2);
-				
+
+				OrderDto dto3 = new OrderDto();
+				dto3.setSide(Side.Buy);
+				dto3.setOrderType(OrderType.Market);
+				dto3.setOpenQuantity(500);
+				dto3.setSymbol("AAPL");
+				orderBooker.bookOrder(account, dto3);
 				// RestTemplate template = new RestTemplate();
 				// StockQuote obj =
 				// template.getForObject("http://dev.markitondemand.com/Api/v2/Quote/json?symbol=AAPL",

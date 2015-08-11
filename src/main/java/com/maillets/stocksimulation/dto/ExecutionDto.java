@@ -13,6 +13,7 @@ public class ExecutionDto {
 	private Side side;
 	private double price;
 	private int orderId;
+	private int accountId;
 	private LocalTime timestamp;
 	private double commission;
 
@@ -64,6 +65,14 @@ public class ExecutionDto {
 		this.orderId = orderId;
 	}
 
+	public int getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
+	}
+
 	public LocalTime getTimestamp() {
 		return timestamp;
 	}
@@ -85,6 +94,7 @@ public class ExecutionDto {
 		dto.setCommission(execution.getCommission());
 		dto.setId(execution.getId());
 		dto.setOrderId(execution.getOrder().getId());
+		dto.setAccountId(execution.getAccount().getId());
 		dto.setPrice(execution.getPrice());
 		dto.setQuantity(execution.getQuantity());
 		dto.setSide(execution.getSide());

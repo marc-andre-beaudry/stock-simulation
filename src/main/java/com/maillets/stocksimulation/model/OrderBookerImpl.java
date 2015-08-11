@@ -65,6 +65,7 @@ public class OrderBookerImpl implements OrderBooker {
 		order.setSymbol(symbol);
 		order.setTotalQuantity(dto.getTotalQuantity());
 		order = orderRepository.saveAndFlush(order);
+		account.getOrders().add(order);
 
 		Execution execution = new Execution();
 		execution.setAccount(account);
@@ -76,6 +77,7 @@ public class OrderBookerImpl implements OrderBooker {
 		execution.setSymbol(symbol);
 		execution.setTimestamp(LocalTime.now());
 		execution = executionRepository.saveAndFlush(execution);
+		account.getExecutions().add(execution);
 
 		Optional<Position> existingPosition = account.getPositions().stream().filter(ex -> ex.getSymbol().equalsIgnoreCase(symbol)).findFirst();
 		if (existingPosition.isPresent()) {
@@ -92,6 +94,7 @@ public class OrderBookerImpl implements OrderBooker {
 			newPosition.setSymbol(symbol);
 			newPosition.setTotalCost(quantity * lastPrice);
 			newPosition = positionRepository.saveAndFlush(newPosition);
+			account.getPositions().add(newPosition);
 		}
 		return order;
 	}

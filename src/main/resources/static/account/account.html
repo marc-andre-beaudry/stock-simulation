@@ -17,7 +17,6 @@
 		</table>
 	</div>
 </div>
-
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">My Positions</h3>
@@ -25,19 +24,24 @@
 	<div class="panel-body">
 		<table class="table table-hover table-striped">
 			<tr>
+				<th>#</th>
 				<th>Symbol</th>
-				<th>Qty</th>
+				<th>Open Qty</th>
 				<th>Avg Price</th>
+				<th>Account #</th>
+				<th>Closed Pnl</th>
 			</tr>
 			<tr ng-repeat='position in positions'>
+				<td>{{position.id}}</td>
 				<td>{{position.symbol}}</td>
 				<td>{{position.openQuantity}}</td>
 				<td>{{position.averageEntryPrice}}</td>
+				<td>{{position.accountId}}</td>
+				<td>{{position.closedPnL}}</td>
 			</tr>
 		</table>
 	</div>
 </div>
-
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">My Orders</h3>
@@ -63,7 +67,6 @@
 		</table>
 	</div>
 </div>
-
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">My Executions</h3>

@@ -4,6 +4,7 @@ import com.maillets.stocksimulation.entities.Position;
 
 public class PositionDto {
 
+	private int id;
 	private String symbol;
 	private int openQuantity;
 	private double currentMarketValue;
@@ -12,6 +13,15 @@ public class PositionDto {
 	private double closedPnL;
 	private double openPnL;
 	private double totalCost;
+	private int accountId;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getSymbol() {
 		return symbol;
@@ -77,14 +87,24 @@ public class PositionDto {
 		this.totalCost = totalCost;
 	}
 
+	public int getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
+	}
+
 	public static PositionDto fromPosition(Position position) {
 		PositionDto dto = new PositionDto();
+		dto.setId(position.getId());
 		dto.setAverageEntryPrice(position.getAverageEntryPrice());
 		dto.setClosedPnL(position.getClosedPnL());
 		dto.setOpenPnL(position.getOpenPnL());
 		dto.setOpenQuantity(position.getOpenQuantity());
 		dto.setSymbol(position.getSymbol());
 		dto.setTotalCost(position.getTotalCost());
+		dto.setAccountId(position.getAccount().getId());
 		return dto;
 	}
 }

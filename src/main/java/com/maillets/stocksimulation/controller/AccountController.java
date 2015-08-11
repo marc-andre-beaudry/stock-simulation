@@ -1,6 +1,8 @@
 package com.maillets.stocksimulation.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +36,10 @@ public class AccountController {
 	@Autowired
 	private OrderBooker orderBooker;
 
+	private final Comparator<Position> positionComparatorById = Comparator.comparing(Position::getId);
+	private final Comparator<Order> orderComparatorById = Comparator.comparing(Order::getId);
+	private final Comparator<Execution> executionComparatorById = Comparator.comparing(Execution::getId);
+
 	@RequestMapping(value = "", method = { RequestMethod.GET })
 	public List<AccountDto> getAccounts() {
 		List<Account> accounts = accountRepository.findAll();
@@ -53,8 +59,10 @@ public class AccountController {
 	@RequestMapping(value = "/{accountId}/positions", method = { RequestMethod.GET })
 	public List<PositionDto> getAccountPositions(@PathVariable(value = "accountId") String accountId) {
 		Account account = validateAndGetPlayer(accountId);
+		List<Position> positions = new ArrayList<Position>(account.getPositions());
+		Collections.sort(positions, positionComparatorById);
 		List<PositionDto> positionDtos = new ArrayList<>();
-		for (Position position : account.getPositions()) {
+		for (Position position : positions) {
 			positionDtos.add(PositionDto.fromPosition(position));
 		}
 		return positionDtos;
@@ -63,8 +71,10 @@ public class AccountController {
 	@RequestMapping(value = "/{accountId}/orders", method = { RequestMethod.GET })
 	public List<OrderDto> getAccountOrders(@PathVariable(value = "accountId") String accountId) {
 		Account account = validateAndGetPlayer(accountId);
+		List<Order> orders = new ArrayList<Order>(account.getOrders());
+		Collections.sort(orders, orderComparatorById);
 		List<OrderDto> orderDtos = new ArrayList<>();
-		for (Order order : account.getOrders()) {
+		for (Order order : orders) {
 			orderDtos.add(OrderDto.fromOrder(order));
 		}
 		return orderDtos;
@@ -86,8 +96,10 @@ public class AccountController {
 	@RequestMapping(value = "/{accountId}/executions", method = { RequestMethod.GET })
 	public List<ExecutionDto> getAccountExecutions(@PathVariable(value = "accountId") String accountId) {
 		Account account = validateAndGetPlayer(accountId);
+		List<Execution> executions = new ArrayList<Execution>(account.getExecutions());
+		Collections.sort(executions, executionComparatorById);
 		List<ExecutionDto> executionsDtos = new ArrayList<>();
-		for (Execution execution : account.getExecutions()) {
+		for (Execution execution : executions) {
 			executionsDtos.add(ExecutionDto.fromExecution(execution));
 		}
 		return executionsDtos;
