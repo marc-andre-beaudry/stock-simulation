@@ -2,13 +2,16 @@ package com.maillets.stocksimulation.model;
 
 import java.util.List;
 
-import com.maillets.stocksimulation.Company;
-import com.maillets.stocksimulation.CompanySeedLoader;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.maillets.stocksimulation.entities.Stock;
 import com.maillets.stocksimulation.external.StockQuote;
+import com.maillets.stocksimulation.repository.StockRepository;
 
 public class MktDataProviderImpl implements MktDataProvider {
 
-	private final List<Company> companies;
+	@Autowired
+	private StockRepository stockRepository;
 
 	public StockQuote getStockQuote(String symbol) {
 		StockQuote quote = new StockQuote();
@@ -27,13 +30,9 @@ public class MktDataProviderImpl implements MktDataProvider {
 		return quote;
 	}
 
-	public MktDataProviderImpl() {
-		companies = CompanySeedLoader.load("company_seed.data");
-	}
-
 	@Override
-	public List<Company> getCompanies() {
-		return companies;
+	public List<Stock> getStocks() {
+		return stockRepository.findAll();
 	}
 
 }

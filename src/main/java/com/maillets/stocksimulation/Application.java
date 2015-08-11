@@ -1,5 +1,8 @@
 package com.maillets.stocksimulation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +15,7 @@ import com.maillets.stocksimulation.dto.OrderDto;
 import com.maillets.stocksimulation.entities.Account;
 import com.maillets.stocksimulation.entities.OrderType;
 import com.maillets.stocksimulation.entities.Side;
+import com.maillets.stocksimulation.entities.Stock;
 import com.maillets.stocksimulation.entities.User;
 import com.maillets.stocksimulation.model.CommissionModel;
 import com.maillets.stocksimulation.model.CommissionModelImpl;
@@ -23,6 +27,7 @@ import com.maillets.stocksimulation.repository.AccountRepository;
 import com.maillets.stocksimulation.repository.ExecutionRepository;
 import com.maillets.stocksimulation.repository.OrderRepository;
 import com.maillets.stocksimulation.repository.PositionRepository;
+import com.maillets.stocksimulation.repository.StockRepository;
 import com.maillets.stocksimulation.repository.UserRepository;
 
 @Configuration
@@ -42,6 +47,8 @@ public class Application {
 	private PositionRepository positionRepository;
 	@Autowired
 	private OrderBooker orderBooker;
+	@Autowired
+	private StockRepository stockRepository;
 
 	@Bean
 	public MktDataProvider mktDataProvider() {
@@ -55,7 +62,8 @@ public class Application {
 
 	@Bean
 	public OrderBooker orderBooker() {
-		return new OrderBookerImpl(accountRepository, orderRepository, executionRepository, positionRepository, mktDataProvider(), commissionModel());
+		return new OrderBookerImpl(accountRepository, orderRepository, executionRepository, positionRepository,
+				mktDataProvider(), commissionModel());
 	}
 
 	@Bean
@@ -64,6 +72,20 @@ public class Application {
 		return arg -> {
 
 			try {
+				List<Company> companies = CompanySeedLoader.load("company_seed.data");
+				List<Stock> stocksToAdd = new ArrayList<>();
+				for (Company company : companies) {
+					Stock stock = new Stock();
+					stock.setSymbol(company.getSymbol());
+					stock.setName(company.getName());
+					stock.setSector(company.getSector());
+					stock.setIndustry(company.getIndustry());
+					stock.setIpoYear(company.getIpoYear());
+					stock.setMarketCap(company.getMarketCap());
+					stocksToAdd.add(stock);
+				}
+				stockRepository.save(stocksToAdd);
+				stockRepository.flush();
 
 				User user = new User();
 				user.setFirstName("Marc-Andre");

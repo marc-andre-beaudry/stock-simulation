@@ -1,7 +1,7 @@
 App.factory('searchService', function($http) {
 	return {
 		getCompanies : function() {
-			return $http.get('/api/mktdata/companies');
+			return $http.get('/api/mktdata/stocks');
 		}
 	};
 });

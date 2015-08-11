@@ -1,42 +1,15 @@
-package com.maillets.stocksimulation.entities;
+package com.maillets.stocksimulation.dto;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.maillets.stocksimulation.entities.Stock;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+public class StockDto {
 
-@Entity
-@Table(name = "stocks")
-public class Stock {
-
-	@Id
-	@GeneratedValue
-	private Integer id;
-
-	@Column(nullable = false)
 	private String symbol;
-	@Column(nullable = false)
 	private String name;
 	private String marketCap;
 	private String ipoYear;
 	private String sector;
 	private String industry;
-
-	@ManyToMany(mappedBy = "stocks")
-	private Set<WatchList> watchLists = new HashSet<>();
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getSymbol() {
 		return symbol;
@@ -86,11 +59,14 @@ public class Stock {
 		this.industry = industry;
 	}
 
-	public Set<WatchList> getWatchLists() {
-		return watchLists;
-	}
-
-	public void setWatchLists(Set<WatchList> watchLists) {
-		this.watchLists = watchLists;
+	public static StockDto fromStock(Stock stock) {
+		StockDto dto = new StockDto();
+		dto.setSymbol(stock.getSymbol());
+		dto.setName(stock.getName());
+		dto.setSector(stock.getSector());
+		dto.setIndustry(stock.getIndustry());
+		dto.setIpoYear(stock.getIpoYear());
+		dto.setMarketCap(stock.getMarketCap());
+		return dto;
 	}
 }
