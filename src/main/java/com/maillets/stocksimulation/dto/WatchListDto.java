@@ -1,9 +1,7 @@
-package com.maillets.stocksimulation.entities;
+package com.maillets.stocksimulation.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.maillets.stocksimulation.dto.StockDto;
 
 public class WatchListDto {
 	

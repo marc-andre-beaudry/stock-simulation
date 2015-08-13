@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.maillets.stocksimulation.controller.exception.BadRequestException;
 import com.maillets.stocksimulation.dto.StockDto;
+import com.maillets.stocksimulation.dto.WatchListDto;
 import com.maillets.stocksimulation.entities.Stock;
 import com.maillets.stocksimulation.entities.WatchList;
-import com.maillets.stocksimulation.entities.WatchListDto;
 import com.maillets.stocksimulation.repository.WatchListRepository;
 
 @RestController

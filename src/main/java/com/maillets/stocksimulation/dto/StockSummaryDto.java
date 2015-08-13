@@ -1,13 +1,23 @@
 package com.maillets.stocksimulation.dto;
 
 public class StockSummaryDto {
+
 	private double previousClose;
 	private double open;
+	private double low;
+	private double high;
 	private double bidPrice;
 	private int bidSize;
-	private double ask;
+	private double askPrice;
 	private int askSize;
 	private int volume;
+
+	private double low52week;
+	private double high52week;
+	private double marketCap;
+	private double eps;
+	private double pe;
+	private double beta;
 	private int avgVolume;
 
 	public double getPreviousClose() {
@@ -26,6 +36,22 @@ public class StockSummaryDto {
 		this.open = open;
 	}
 
+	public double getLow() {
+		return low;
+	}
+
+	public void setLow(double low) {
+		this.low = low;
+	}
+
+	public double getHigh() {
+		return high;
+	}
+
+	public void setHigh(double high) {
+		this.high = high;
+	}
+
 	public double getBidPrice() {
 		return bidPrice;
 	}
@@ -42,12 +68,12 @@ public class StockSummaryDto {
 		this.bidSize = bidSize;
 	}
 
-	public double getAsk() {
-		return ask;
+	public double getAskPrice() {
+		return askPrice;
 	}
 
-	public void setAsk(double ask) {
-		this.ask = ask;
+	public void setAskPrice(double askPrice) {
+		this.askPrice = askPrice;
 	}
 
 	public int getAskSize() {
@@ -66,6 +92,54 @@ public class StockSummaryDto {
 		this.volume = volume;
 	}
 
+	public double getLow52week() {
+		return low52week;
+	}
+
+	public void setLow52week(double low52week) {
+		this.low52week = low52week;
+	}
+
+	public double getHigh52week() {
+		return high52week;
+	}
+
+	public void setHigh52week(double high52week) {
+		this.high52week = high52week;
+	}
+
+	public double getMarketCap() {
+		return marketCap;
+	}
+
+	public void setMarketCap(double marketCap) {
+		this.marketCap = marketCap;
+	}
+
+	public double getEps() {
+		return eps;
+	}
+
+	public void setEps(double eps) {
+		this.eps = eps;
+	}
+
+	public double getPe() {
+		return pe;
+	}
+
+	public void setPe(double pe) {
+		this.pe = pe;
+	}
+
+	public double getBeta() {
+		return beta;
+	}
+
+	public void setBeta(double beta) {
+		this.beta = beta;
+	}
+
 	public int getAvgVolume() {
 		return avgVolume;
 	}
@@ -74,19 +148,3 @@ public class StockSummaryDto {
 		this.avgVolume = avgVolume;
 	}
 }
-
-// Prev Close: 119.72
-// Open: 117.98
-// Bid: 112.21 x 100
-// Ask: 112.28 x 100
-// 1y Target Est: 146.88
-// Beta: 1.11
-// Earnings Date: Oct 19 - Oct 23
-// Day's Range: 113.33 - 118.18
-// 52wk Range: 95.18 - 134.54
-// Volume: 97,082,214
-// Avg Vol (3m): 47,722,900
-// Market Cap: 647.20B
-// P/E (ttm): 13.13
-// EPS (ttm): 8.65
-// Div & Yield: 2.08 (1.70%)

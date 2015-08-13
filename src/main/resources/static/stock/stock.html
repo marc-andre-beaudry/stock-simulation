@@ -6,58 +6,70 @@
 		<div class="container-fluid">
 			<div class="row no-gutter">
 				<div class="col-md-6">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-xs-6">Previous Close : </div>
-							<div class="col-xs-6 text-right">{{stockQuote.previousClose}}</div>
-						</div>
-					</div>
+					<table class="table table-hover table-striped">
+						<tr>
+							<td>Previous Close :</td>
+							<td class="text-right">{{stockQuote.previousClose}}</td>
+						</tr>
+						<tr>
+							<td>Open :</td>
+							<td class="text-right">{{stockQuote.open}}</td>
+						</tr>
+						<tr>
+							<td>Low :</td>
+							<td class="text-right">{{stockQuote.low}}</td>
+						</tr>
+						<tr>
+							<td>High :</td>
+							<td class="text-right">{{stockQuote.high}}</td>
+						</tr>
+						<tr>
+							<td>Bid :</td>
+							<td class="text-right">{{stockQuote.bidPrice}} x {{stockQuote.bidSize}}</td>
+						</tr>
+						<tr>
+							<td>Ask :</td>
+							<td class="text-right">{{stockQuote.askPrice}} x {{stockQuote.askSize}}</td>
+						</tr>
+						<tr>
+							<td>Volume :</td>
+							<td class="text-right">{{stockQuote.volume}}</td>
+						</tr>
+					</table>
 				</div>
 				<div class="col-md-6">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-xs-6">Open : </div>
-							<div class="col-xs-6 text-right">{{stockQuote.open}}</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-xs-6">Bid : </div>
-							<div class="col-xs-6 text-right">{{stockQuote.bid}} *
-								{{stockQuote.bidSize}}</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-xs-6">Ask : </div>
-							<div class="col-xs-6 text-right">{{stockQuote.ask}} *
-								{{stockQuote.askSize}}</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-xs-6">Volume : </div>
-							<div class="col-xs-6 text-right">{{stockQuote.volume}}</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-xs-6">Avg Volume</div>
-							<div class="col-xs-6 text-right">{{stockQuote.avgVolume}}</div>
-						</div>
-					</div>
+					<table class="table table-hover table-striped">
+						<tr>
+							<td>Low 52wk :</td>
+							<td class="text-right">{{stockQuote.low52week}}</td>
+						</tr>
+						<tr>
+							<td>High 52wk :</td>
+							<td class="text-right">{{stockQuote.high52week}}</td>
+						</tr>
+						<tr>
+							<td>Market Cap :</td>
+							<td class="text-right">{{stockQuote.marketCap}}</td>
+						</tr>
+						<tr>
+							<td>Eps :</td>
+							<td class="text-right">{{stockQuote.eps}}</td>
+						</tr>
+						<tr>
+							<td>PE :</td>
+							<td class="text-right">{{stockQuote.pe}}</td>
+						</tr>
+						<tr>
+							<td>Beta :</td>
+							<td class="text-right">{{stockQuote.beta}}</td>
+						</tr>
+						<tr>
+							<td>Avg Volume (3m) :</td>
+							<td class="text-right">{{stockQuote.avgVolume}}</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-Prev Close: Open: Bid: Ask: 112.00 x 400 1y Target Est: 146.88 Beta:
-1.11 Earnings Date: Oct 19 - Oct 23 (Est.)

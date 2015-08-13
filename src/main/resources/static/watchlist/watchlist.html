@@ -9,7 +9,7 @@
 				<th>Name</th>
 			</tr>
 			<tr ng-repeat='stock in watchList.stocks'>
-				<td>{{stock.symbol}}</td>
+				<td><a ng-href="#/stock/{{stock.symbol}}">{{stock.symbol}}</a></td>
 				<td>{{stock.name}}</td>
 			</tr>
 		</table>
