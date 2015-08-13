@@ -7,7 +7,7 @@ App.factory('searchService', function($http) {
 });
 
 App.controller('searchController', function($scope, $http, $location,
-		$routeParams, searchService) {
+		$routeParams, searchService, watchListService) {
 
 	$scope.search = "";
 	$scope.availableStocks = [];
@@ -39,5 +39,19 @@ App.controller('searchController', function($scope, $http, $location,
 			}
 		}
 	}
+	
+	$scope.addStock = function(symbol) {
+		watchListService.addStockToWatchList('1', symbol).success(handleAddStockSuccess);
+	}
+	
+	$scope.removeStock = function(symbol) {
+		watchListService.removeStockFromWatchList('1', symbol).success(handleRemoveStockSuccess);
+	}
+	
+	var handleAddStockSuccess = function(data, status) {
+	};
+	
+	var handleRemoveStockSuccess = function(data, status) {
+	};
 	searchService.getCompanies().success(handleGetCompaniesSuccess);
 });
