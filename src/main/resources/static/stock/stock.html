@@ -3,6 +3,61 @@
 		<h3 class="panel-title">Symbol - {{stock.symbol}}</h3>
 	</div>
 	<div class="panel-body">
-		
+		<div class="container-fluid">
+			<div class="row no-gutter">
+				<div class="col-md-6">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-6">Previous Close : </div>
+							<div class="col-xs-6 text-right">{{stockQuote.previousClose}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-6">Open : </div>
+							<div class="col-xs-6 text-right">{{stockQuote.open}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-6">Bid : </div>
+							<div class="col-xs-6 text-right">{{stockQuote.bid}} *
+								{{stockQuote.bidSize}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-6">Ask : </div>
+							<div class="col-xs-6 text-right">{{stockQuote.ask}} *
+								{{stockQuote.askSize}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-6">Volume : </div>
+							<div class="col-xs-6 text-right">{{stockQuote.volume}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-6">Avg Volume</div>
+							<div class="col-xs-6 text-right">{{stockQuote.avgVolume}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
+Prev Close: Open: Bid: Ask: 112.00 x 400 1y Target Est: 146.88 Beta:
+1.11 Earnings Date: Oct 19 - Oct 23 (Est.)

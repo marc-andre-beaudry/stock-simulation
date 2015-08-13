@@ -36,6 +36,11 @@ public class WatchListController {
 		}
 		return dto;
 	}
+	
+	@RequestMapping(value = "/{watchListId}/stocks", method = { RequestMethod.POST })
+	public void addStockToWatchList(@PathVariable(value = "watchListId") String watchListId) {
+		
+	}
 
 	private int validateAndParseInt(String id) {
 		try {

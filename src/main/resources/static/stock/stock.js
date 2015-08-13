@@ -1,7 +1,7 @@
 App.factory('stockService', function($http) {
 	return {
-		getWatchList : function(id) {
-			return $http.get('/api/watchlist/' + id);
+		getStockSummary : function(symbol) {
+			return $http.get('/api/mktdata/summary/' + symbol);
 		}
 	};
 });
@@ -11,4 +11,11 @@ App.controller('stockController', function($scope, $http, $location,
 	$scope.stock = {
 		symbol : $routeParams.symbol
 	};
+	$scope.stockQuote = {};
+
+	var handleGetStockSummarySuccess = function(data, status) {
+		$scope.stockQuote = data;
+	};
+
+	stockService.getStockSummary().success(handleGetStockSummarySuccess);
 });
