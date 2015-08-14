@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -40,6 +42,8 @@ import com.maillets.stocksimulation.repository.WatchListRepository;
 @EnableAutoConfiguration
 public class Application {
 
+	private static final Logger logger = LoggerFactory.getLogger(Application.class);
+
 	@Autowired
 	private AccountRepository accountRepository;
 	@Autowired
@@ -70,7 +74,7 @@ public class Application {
 
 	@Bean
 	public OrderBooker orderBooker() {
-		return new OrderBookerImpl(accountRepository, orderRepository, executionRepository, positionRepository,
+		return new OrderBookerImpl(orderRepository, executionRepository, positionRepository,
 				mktDataProvider(), commissionModel());
 	}
 
@@ -126,25 +130,25 @@ public class Application {
 				dto3.setOpenQuantity(500);
 				dto3.setSymbol("AAPL");
 				orderBooker.bookOrder(account, dto3);
-				
+
 				List<Stock> top100Stocks = new ArrayList<Stock>(stockRepository.findAll());
 				Collections.sort(top100Stocks, stockComparatorByMktCap.reversed());
-				
+
 				WatchList watchList = new WatchList();
 				watchList.setName("Top 100");
 				watchList.setUser(user);
 				watchList.getStocks().addAll(top100Stocks.stream().limit(10).collect(Collectors.toList()));
 				watchListRepository.saveAndFlush(watchList);
-				
+
 				// RestTemplate template = new RestTemplate();
 				// StockQuote obj =
 				// template.getForObject("http://dev.markitondemand.com/Api/v2/Quote/json?symbol=AAPL",
 				// StockQuote.class);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error(e.getMessage(), e);
 			}
 
-			System.out.println("Init done!");
+			logger.info("Init done!");
 		};
 	}
 

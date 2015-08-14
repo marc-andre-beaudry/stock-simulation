@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.maillets.stocksimulation.controller.exception.EntityNotFoundException;
 import com.maillets.stocksimulation.dto.StockDto;
 import com.maillets.stocksimulation.dto.StockSummaryDto;
 import com.maillets.stocksimulation.entities.Stock;
 import com.maillets.stocksimulation.model.MktDataProvider;
+import com.maillets.stocksimulation.repository.StockRepository;
 
 @RestController
 @RequestMapping("/api/mktdata")
@@ -22,17 +24,30 @@ public class MktDataController {
 	@Autowired
 	private MktDataProvider provider;
 
+	@Autowired
+	private StockRepository stockRepository;
+
 	private final Comparator<Stock> stockComparatorBySymbol = Comparator.comparing(Stock::getSymbol);
 
 	@RequestMapping("/stocks")
-	public List<StockDto> symbols() {
-		List<Stock> stocks = provider.getStocks();
+	public List<StockDto> getStocks() {
+		List<Stock> stocks = stockRepository.findAll();
 		Collections.sort(stocks, stockComparatorBySymbol);
 		List<StockDto> dtos = new ArrayList<>();
 		for (Stock stock : stocks) {
 			dtos.add(StockDto.fromStock(stock));
 		}
 		return dtos;
+	}
+
+	@RequestMapping("/stocks/{symbol}")
+	public StockDto getStock(@PathVariable(value = "symbol") String symbol) {
+		List<Stock> stocks = stockRepository.findBySymbol(symbol);
+		if (stocks.size() == 1) {
+			return StockDto.fromStock(stocks.get(0));
+		} else {
+			throw new EntityNotFoundException("[" + symbol + "] not found");
+		}
 	}
 
 	@RequestMapping("/summary/{symbol}")

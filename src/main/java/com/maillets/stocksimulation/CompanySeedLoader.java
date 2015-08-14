@@ -43,7 +43,7 @@ public class CompanySeedLoader {
 					marketCap = Double.parseDouble(marketCapStr) * 1000000000;
 				}
 			} else {
-				System.out.println(marketCapStr);
+				// no market cap
 			}
 			company.setMarketCap(marketCap);
 			company.setIpoYear(splittedLine[4]);

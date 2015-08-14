@@ -68,7 +68,7 @@ public class OrderBookerImplTest {
 		account.setBalance(10000d);
 		account.setOwner(user);
 		account = accountRepository.saveAndFlush(account);
-		orderBooker = new OrderBookerImpl(accountRepository, orderRepository, executionRepository, positionRepository, mktDataProvider, commissionModel);
+		orderBooker = new OrderBookerImpl(orderRepository, executionRepository, positionRepository, mktDataProvider, commissionModel);
 	}
 
 	@Test

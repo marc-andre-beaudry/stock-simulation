@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +32,8 @@ import com.maillets.stocksimulation.repository.AccountRepository;
 @RequestMapping("/api/account")
 public class AccountController {
 
+	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
+
 	@Autowired
 	private AccountRepository accountRepository;
 
@@ -42,6 +46,8 @@ public class AccountController {
 
 	@RequestMapping(value = "", method = { RequestMethod.GET })
 	public List<AccountDto> getAccounts() {
+		logger.debug("GET /");
+
 		List<Account> accounts = accountRepository.findAll();
 		List<AccountDto> dtos = new ArrayList<>();
 		for (Account account : accounts) {
@@ -52,12 +58,16 @@ public class AccountController {
 
 	@RequestMapping(value = "/{accountId}", method = { RequestMethod.GET })
 	public AccountDto getAccount(@PathVariable(value = "accountId") String accountId) {
+		logger.debug("GET /" + accountId);
+
 		Account account = validateAndGetPlayer(accountId);
 		return AccountDto.fromAccount(account);
 	}
 
 	@RequestMapping(value = "/{accountId}/positions", method = { RequestMethod.GET })
 	public List<PositionDto> getAccountPositions(@PathVariable(value = "accountId") String accountId) {
+		logger.debug("GET /" + accountId + "/positions");
+
 		Account account = validateAndGetPlayer(accountId);
 		List<Position> positions = new ArrayList<Position>(account.getPositions());
 		Collections.sort(positions, positionComparatorById);
@@ -70,6 +80,8 @@ public class AccountController {
 
 	@RequestMapping(value = "/{accountId}/orders", method = { RequestMethod.GET })
 	public List<OrderDto> getAccountOrders(@PathVariable(value = "accountId") String accountId) {
+		logger.debug("GET /" + accountId + "/orders");
+
 		Account account = validateAndGetPlayer(accountId);
 		List<Order> orders = new ArrayList<Order>(account.getOrders());
 		Collections.sort(orders, orderComparatorById);
@@ -83,6 +95,8 @@ public class AccountController {
 	@RequestMapping(value = "/{accountId}/orders/{orderId}", method = { RequestMethod.GET })
 	public OrderDto getAccountOrder(@PathVariable(value = "accountId") String accountId,
 			@PathVariable(value = "orderId") String orderId) {
+		logger.debug("GET /" + accountId + "/orders/" + orderId);
+
 		Account account = validateAndGetPlayer(accountId);
 		int parsedOrderId = validateAndParseInt(orderId);
 		Optional<Order> order = account.getOrders().stream().filter(x -> x.getId() == parsedOrderId).findFirst();
@@ -95,6 +109,8 @@ public class AccountController {
 
 	@RequestMapping(value = "/{accountId}/executions", method = { RequestMethod.GET })
 	public List<ExecutionDto> getAccountExecutions(@PathVariable(value = "accountId") String accountId) {
+		logger.debug("GET /" + accountId + "/executions");
+
 		Account account = validateAndGetPlayer(accountId);
 		List<Execution> executions = new ArrayList<Execution>(account.getExecutions());
 		Collections.sort(executions, executionComparatorById);
@@ -107,6 +123,8 @@ public class AccountController {
 
 	@RequestMapping(value = "/{accountId}/orders", method = { RequestMethod.POST })
 	public OrderDto addOrUpdateOrder(@PathVariable(value = "accountId") String accountId, @RequestBody OrderDto dto) {
+		logger.debug("POST /" + accountId + "/orders");
+
 		Account account = validateAndGetPlayer(accountId);
 		if (dto.getId() == null) {
 			Order order = orderBooker.bookOrder(account, dto);
@@ -120,6 +138,8 @@ public class AccountController {
 	@RequestMapping(value = "/{accountId}/orders/{orderId}", method = { RequestMethod.DELETE })
 	public void deleteOrder(@PathVariable(value = "accountId") String accountId,
 			@PathVariable(value = "orderId") String orderId) {
+		logger.debug("DELETE /" + accountId + "/orders/" + orderId);
+
 		Account account = validateAndGetPlayer(accountId);
 		throw new UnsupportedOperationException();
 	}

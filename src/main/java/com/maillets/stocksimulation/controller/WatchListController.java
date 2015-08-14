@@ -1,5 +1,7 @@
 package com.maillets.stocksimulation.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,8 @@ import com.maillets.stocksimulation.repository.WatchListRepository;
 @RequestMapping("/api/watchlist")
 public class WatchListController {
 
+	private static final Logger logger = LoggerFactory.getLogger(WatchListController.class);
+
 	@Autowired
 	private WatchListRepository watchListRepository;
 	@Autowired
@@ -25,6 +29,7 @@ public class WatchListController {
 
 	@RequestMapping(value = "/{watchListId}", method = { RequestMethod.GET })
 	public WatchListDto getWatchList(@PathVariable(value = "watchListId") String watchListId) {
+		logger.debug("GET /" + watchListId);
 
 		int parsedWatchListId = validateAndParseInt(watchListId);
 		WatchList watchList = watchListRepository.findOne(parsedWatchListId);
@@ -42,11 +47,12 @@ public class WatchListController {
 
 	@RequestMapping(value = "/{watchListId}/stocks/{symbol}", method = { RequestMethod.PUT })
 	public void addStockToWatchList(@PathVariable(value = "watchListId") String watchListId, @PathVariable(value = "symbol") String symbol) {
+		logger.debug("PUT /" + watchListId + "/stocks/" + symbol);
 
 		int parsedWatchListId = validateAndParseInt(watchListId);
 		WatchList watchList = watchListRepository.findOne(parsedWatchListId);
 		boolean anyExisting = watchList.getStocks().stream().anyMatch(x -> x.getSymbol().equalsIgnoreCase(symbol));
-		if(!anyExisting) {
+		if (!anyExisting) {
 			Stock stock = stockRepository.findBySymbol(symbol).get(0);
 			watchList.getStocks().add(stock);
 			watchListRepository.saveAndFlush(watchList);
@@ -55,11 +61,12 @@ public class WatchListController {
 
 	@RequestMapping(value = "/{watchListId}/stocks/{symbol}", method = { RequestMethod.DELETE })
 	public void removeStockFromWatchList(@PathVariable(value = "watchListId") String watchListId, @PathVariable(value = "symbol") String symbol) {
+		logger.debug("DELETE /" + watchListId + "/stocks/" + symbol);
 
 		int parsedWatchListId = validateAndParseInt(watchListId);
 		WatchList watchList = watchListRepository.findOne(parsedWatchListId);
 		boolean anyExisting = watchList.getStocks().stream().anyMatch(x -> x.getSymbol().equalsIgnoreCase(symbol));
-		if(anyExisting) {
+		if (anyExisting) {
 			watchList.getStocks().removeIf(x -> x.getSymbol().equalsIgnoreCase(symbol));
 			watchListRepository.saveAndFlush(watchList);
 		}

@@ -1,9 +1,7 @@
 package com.maillets.stocksimulation.model;
 
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,14 +13,12 @@ import com.maillets.stocksimulation.entities.Position;
 import com.maillets.stocksimulation.entities.Side;
 import com.maillets.stocksimulation.entities.State;
 import com.maillets.stocksimulation.external.StockQuote;
-import com.maillets.stocksimulation.repository.AccountRepository;
 import com.maillets.stocksimulation.repository.ExecutionRepository;
 import com.maillets.stocksimulation.repository.OrderRepository;
 import com.maillets.stocksimulation.repository.PositionRepository;
 
 public class OrderBookerImpl implements OrderBooker {
 
-	private final AccountRepository accountRepository;
 	private final OrderRepository orderRepository;
 	private final ExecutionRepository executionRepository;
 	private final PositionRepository positionRepository;
@@ -30,9 +26,8 @@ public class OrderBookerImpl implements OrderBooker {
 	private final CommissionModel commissionModel;
 
 	@Autowired
-	public OrderBookerImpl(AccountRepository accountRepository, OrderRepository orderRepository, ExecutionRepository executionRepository,
+	public OrderBookerImpl(OrderRepository orderRepository, ExecutionRepository executionRepository,
 			PositionRepository positionRepository, MktDataProvider mktDataProvider, CommissionModel commissionModel) {
-		this.accountRepository = accountRepository;
 		this.orderRepository = orderRepository;
 		this.executionRepository = executionRepository;
 		this.positionRepository = positionRepository;

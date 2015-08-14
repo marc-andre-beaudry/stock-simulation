@@ -2,6 +2,9 @@ App.factory('searchService', function($http) {
 	return {
 		getCompanies : function() {
 			return $http.get('/api/mktdata/stocks');
+		}, 
+		getCompany : function(symbol) {
+			return $http.get('/api/mktdata/stocks/' + symbol);
 		}
 	};
 });
@@ -10,14 +13,10 @@ App.controller('searchController', function($scope, $http, $location,
 		$routeParams, searchService, watchListService) {
 
 	$scope.search = "";
+	$scope.watchList = [];
 	$scope.availableStocks = [];
 	$scope.results = [];
 	$scope.totalMatchs = 0;
-
-	var handleGetCompaniesSuccess = function(data, status) {
-		$scope.availableStocks = data;
-		$scope.updateSearch();
-	};
 
 	$scope.updateSearch = function() {
 		$scope.results = [];
@@ -39,19 +38,50 @@ App.controller('searchController', function($scope, $http, $location,
 			}
 		}
 	}
-	
+
 	$scope.addStock = function(symbol) {
-		watchListService.addStockToWatchList('1', symbol).success(handleAddStockSuccess);
+		watchListService.addStockToWatchList('1', symbol).success(
+				function(data, status) {
+					$scope.watchList.stocks.push({
+						"symbol" : symbol
+					})
+				});
 	}
-	
+
 	$scope.removeStock = function(symbol) {
-		watchListService.removeStockFromWatchList('1', symbol).success(handleRemoveStockSuccess);
+		watchListService.removeStockFromWatchList('1', symbol).success(
+				function(data, status) {
+					var indexToRemove = -1;
+					for(var index = 0; index < $scope.watchList.stocks.length; index++){
+						if ($scope.watchList.stocks[index].symbol == symbol) {
+							indexToRemove = index;
+							break;
+						}
+					}
+					if(indexToRemove >= 0) {
+						$scope.watchList.stocks.splice(indexToRemove, 1);
+					}
+				});
 	}
-	
-	var handleAddStockSuccess = function(data, status) {
+
+	$scope.isInWatchList = function(symbol) {
+		var isInWatchList = false;
+		$scope.watchList.stocks.forEach(function(stock) {
+			if (stock.symbol == symbol) {
+				isInWatchList = true;
+			}
+		});
+		return isInWatchList;
+	}
+
+	var handleGetCompaniesSuccess = function(data, status) {
+		$scope.availableStocks = data;
+		$scope.updateSearch();
 	};
-	
-	var handleRemoveStockSuccess = function(data, status) {
+
+	var handleGetWatchListSuccess = function(data, status) {
+		$scope.watchList = data;
 	};
 	searchService.getCompanies().success(handleGetCompaniesSuccess);
+	watchListService.getWatchList('1').success(handleGetWatchListSuccess);
 });
