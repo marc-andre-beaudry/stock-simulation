@@ -43,8 +43,8 @@
 				<td>{{result.ipoYear}}</td>
 				<td>{{result.sector}}</td>
 				<td>{{result.industry}}</td>
-				<td><button class="btn btn-success" ng-click="addStock(result.symbol)" ng-show="!isInWatchList(result.symbol)">Watch </button>
-				<button class="btn btn-danger" ng-click="removeStock(result.symbol)" ng-show="isInWatchList(result.symbol)">Remove</button></td>
+				<td><button class="btn btn-success btn-block" ng-click="addStock(result.symbol)" ng-show="!isInWatchList(result.symbol)">Watch </button>
+				<button class="btn btn-danger btn-block" ng-click="removeStock(result.symbol)" ng-show="isInWatchList(result.symbol)">Remove</button></td>
 			</tr>
 		</table>
 	</div>
