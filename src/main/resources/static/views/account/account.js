@@ -11,6 +11,9 @@ App.factory('accountService', function($http) {
 		},
 		getExecutions : function(accountId) {
 			return $http.get('/api/account/' + accountId + '/executions');
+		},
+		addOrUpdateOrder : function(accountId, order) {
+			return $http.post('/api/account/' + accountId + '/orders', order);
 		}
 	};
 });

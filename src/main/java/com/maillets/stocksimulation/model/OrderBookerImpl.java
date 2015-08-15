@@ -58,7 +58,7 @@ public class OrderBookerImpl implements OrderBooker {
 		order.setSide(dto.getSide());
 		order.setState(State.Executed);
 		order.setSymbol(symbol);
-		order.setTotalQuantity(dto.getTotalQuantity());
+		order.setTotalQuantity(quantity);
 		order = orderRepository.saveAndFlush(order);
 		account.getOrders().add(order);
 

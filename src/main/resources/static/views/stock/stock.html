@@ -6,17 +6,29 @@
 		<table class="table table-hover table-striped">
 			<tr>
 				<td width="25%"><div class="input-group">
-						<input class="form-control" type="text"
-							placeholder="Symbol or Company Name"></input> <span
-							class="input-group-addon">qty</span>
+						<input
+							class="form-control"
+							type="text"
+							ng-model="buyQty"
+							placeholder="Buy Quantity"
+						></input> <span class="input-group-addon">qty</span>
 					</div></td>
-				<td width="25%"><button class="btn btn-success btn-block">Buy</button></td>
+				<td width="25%"><button
+						class="btn btn-success btn-block"
+						ng-click="buyStock()"
+					>Buy</button></td>
 				<td width="25%"><div class="input-group">
-						<input class="form-control" type="text"
-							placeholder="Symbol or Company Name"></input> <span
-							class="input-group-addon">qty</span>
+						<input
+							class="form-control"
+							type="text"
+							ng-model="sellQty"
+							placeholder="Sell Quantity"
+						></input> <span class="input-group-addon">qty</span>
 					</div></td>
-				<td width="25%"><button class="btn btn-danger btn-block">Sell</button></td>
+				<td width="25%"><button
+						class="btn btn-danger btn-block"
+						ng-click="sellStock()"
+					>Sell</button></td>
 			</tr>
 			<tr>
 				<td>Symbol</td>
@@ -64,13 +76,11 @@
 						</tr>
 						<tr>
 							<td>Bid :</td>
-							<td class="text-right">{{stockQuote.bidPrice}} x
-								{{stockQuote.bidSize}}</td>
+							<td class="text-right">{{stockQuote.bidPrice}} x {{stockQuote.bidSize}}</td>
 						</tr>
 						<tr>
 							<td>Ask :</td>
-							<td class="text-right">{{stockQuote.askPrice}} x
-								{{stockQuote.askSize}}</td>
+							<td class="text-right">{{stockQuote.askPrice}} x {{stockQuote.askSize}}</td>
 						</tr>
 						<tr>
 							<td>Volume :</td>

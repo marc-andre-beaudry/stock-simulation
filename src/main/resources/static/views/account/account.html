@@ -35,7 +35,7 @@
 				<td>{{position.id}}</td>
 				<td>{{position.symbol}}</td>
 				<td>{{position.openQuantity}}</td>
-				<td>{{position.averageEntryPrice}}</td>
+				<td>{{position.averageEntryPrice|formatPrice}}</td>
 				<td>{{position.accountId}}</td>
 				<td>{{position.closedPnL}}</td>
 			</tr>
@@ -62,7 +62,7 @@
 				<td>{{order.orderType}}</td>
 				<td>{{order.symbol}}</td>
 				<td>{{order.totalQuantity}}</td>
-				<td>{{order.avgExecPrice}}</td>
+				<td>{{order.avgExecPrice|formatPrice}}</td>
 			</tr>
 		</table>
 	</div>
@@ -85,7 +85,7 @@
 				<td>{{execution.side}}</td>
 				<td>{{execution.symbol}}</td>
 				<td>{{execution.quantity}}</td>
-				<td>{{execution.price}}</td>
+				<td>{{execution.price|formatPrice}}</td>
 			</tr>
 		</table>
 	</div>

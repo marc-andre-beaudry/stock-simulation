@@ -7,7 +7,8 @@ App.factory('stockService', function($http) {
 });
 
 App.controller('stockController', function($scope, $http, $location,
-		$routeParams, stockService, watchListService, searchService) {
+		$routeParams, stockService, watchListService, searchService,
+		accountService) {
 
 	if ($routeParams.symbol == undefined || $routeParams.symbol == '') {
 		$location.path('/home');
@@ -18,25 +19,31 @@ App.controller('stockController', function($scope, $http, $location,
 	};
 	$scope.stockQuote = {};
 	$scope.stockInfo = {};
+	$scope.buyQty = 100;
+	$scope.sellQty = 100;
 
-	$scope.addStock = function(symbol) {
-		watchListService.addStockToWatchList('1', symbol).success(
-				handleAddStockSuccess);
+	$scope.buyStock = function() {
+		var order = {
+			symbol : $scope.stock.symbol,
+			openQuantity : $scope.buyQty,
+			orderType : "Market",
+			side : "Buy"
+		};
+		accountService.addOrUpdateOrder('1', order);
 	}
 
-	$scope.removeStock = function(symbol) {
-		watchListService.removeStockFromWatchList('1', symbol).success(
-				handleRemoveStockSuccess);
+	$scope.sellStock = function() {
+		var order = {
+			symbol : $scope.stock.symbol,
+			openQuantity : $scope.sellQty,
+			orderType : "Market",
+			side : "Sell"
+		};
+		accountService.addOrUpdateOrder('1', order);
 	}
 
 	var handleGetStockSummarySuccess = function(data, status) {
 		$scope.stockQuote = data;
-	};
-
-	var handleAddStockSuccess = function(data, status) {
-	};
-
-	var handleRemoveStockSuccess = function(data, status) {
 	};
 
 	var handleGetCompanySuccess = function(data, status) {

@@ -34,7 +34,7 @@
 				<th>IPO Year</th>
 				<th>Sector</th>
 				<th>Industry</th>
-				<th></th>
+				<th width="100px"></th>
 			</tr>
 			<tr ng-repeat='result in results'>
 				<td><a ng-href="#/stock/{{result.symbol}}">{{result.symbol}}</a></td>
@@ -43,8 +43,22 @@
 				<td>{{result.ipoYear}}</td>
 				<td>{{result.sector}}</td>
 				<td>{{result.industry}}</td>
-				<td><button class="btn btn-success btn-block" ng-click="addStock(result.symbol)" ng-show="!isInWatchList(result.symbol)">Watch </button>
-				<button class="btn btn-danger btn-block" ng-click="removeStock(result.symbol)" ng-show="isInWatchList(result.symbol)">Remove</button></td>
+				<td>
+					<div>
+						<button
+							class="btn btn-success btn-block"
+							ng-click="addStock(result.symbol)"
+							ng-show="!isInWatchList(result.symbol)"
+						>Watch</button>
+					</div>
+					<div>
+						<button
+							class="btn btn-danger btn-block"
+							ng-click="removeStock(result.symbol)"
+							ng-show="isInWatchList(result.symbol)"
+						>Remove</button>
+					</div>
+				</td>
 			</tr>
 		</table>
 	</div>

@@ -13,11 +13,11 @@
 <!-- 	<link rel="stylesheet" href="external/3.3.5.bootstrap-theme.min.css"> -->
 	<link rel="stylesheet" href="external/css/bootstrap.darktheme.min.css">
 	<link rel="stylesheet" href="app.css">
-	<link rel="stylesheet" href="account/account.css">
-	<link rel="stylesheet" href="home/home.css">
-	<link rel="stylesheet" href="search/search.css">
-	<link rel="stylesheet" href="watchlist/watchlist.css">
-	<link rel="stylesheet" href="stock/stock.css">
+	<link rel="stylesheet" href="views/account/account.css">
+	<link rel="stylesheet" href="views/home/home.css">
+	<link rel="stylesheet" href="views/search/search.css">
+	<link rel="stylesheet" href="views/watchlist/watchlist.css">
+	<link rel="stylesheet" href="views/stock/stock.css">
   </head>
 
   <body ng-app="StockSimulationApp">
@@ -45,6 +45,22 @@
         </div>
       </div>
     </nav>
+    
+    
+	<div
+		class="alert alert-warning alert-dismissible"
+		role="alert"
+	>
+		<button
+			type="button"
+			class="close"
+			data-dismiss="alert"
+			aria-label="Close"
+		>
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<strong>Warning!</strong> ASDASD aASdaSD
+	</div>
 
     <div class="container">
       <div ng-view>
@@ -62,10 +78,11 @@
 	<script src="external/js/ui-bootstrap-0.13.3.min.js"></script>
 	<script src="app.js"></script>
 	<script src="headerController.js"></script>
-	<script src="home/home.js"></script>
-	<script src="watchlist/watchlist.js"></script>
-	<script src="account/account.js"></script>
-	<script src="search/search.js"></script>
-	<script src="stock/stock.js"></script>
+	<script src="views/home/home.js"></script>
+	<script src="views/watchlist/watchlist.js"></script>
+	<script src="views/account/account.js"></script>
+	<script src="views/search/search.js"></script>
+	<script src="views/stock/stock.js"></script>
+	<script src="filters/numberFormatters.js"></script>
   </body>
 </html>
