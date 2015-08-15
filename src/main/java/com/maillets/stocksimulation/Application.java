@@ -84,7 +84,7 @@ public class Application {
 		return arg -> {
 
 			try {
-				List<Company> companies = CompanySeedLoader.load("company_seed.data");
+				List<Company> companies = CompanySeedLoader.load("/company_seed.data");
 				List<Stock> stocksToAdd = new ArrayList<>();
 				for (Company company : companies) {
 					Stock stock = new Stock();
