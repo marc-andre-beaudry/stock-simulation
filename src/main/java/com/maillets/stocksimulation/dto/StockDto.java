@@ -66,7 +66,7 @@ public class StockDto {
 		dto.setSector(stock.getSector());
 		dto.setIndustry(stock.getIndustry());
 		dto.setIpoYear(stock.getIpoYear());
-		dto.setMarketCap((int)(stock.getMarketCap() / 1000000));
+		dto.setMarketCap(stock.getMarketCap());
 		return dto;
 	}
 }

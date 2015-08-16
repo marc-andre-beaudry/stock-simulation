@@ -34,6 +34,7 @@ public class CompanySeedLoader {
 			company.setLastSale(Double.parseDouble(splittedLine[2]));
 			String marketCapStr = splittedLine[3];
 			Double marketCap = 0d;
+			
 			if (marketCapStr.matches(regex)) {
 				if (marketCapStr.charAt(marketCapStr.length() - 1) == 'M') {
 					marketCapStr = marketCapStr.replaceAll("\\$", "").replaceAll("M", "");

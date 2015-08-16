@@ -30,7 +30,7 @@
 			<tr>
 				<th>Symbol</th>
 				<th>Name</th>
-				<th>MarketCap</th>
+				<th>Market Cap</th>
 				<th>IPO Year</th>
 				<th>Sector</th>
 				<th>Industry</th>
@@ -39,7 +39,7 @@
 			<tr ng-repeat='result in results'>
 				<td><a ng-href="#/stock/{{result.symbol}}">{{result.symbol}}</a></td>
 				<td>{{result.name}}</td>
-				<td>{{result.marketCap}}</td>
+				<td>{{result.marketCap|formatMoney}}</td>
 				<td>{{result.ipoYear}}</td>
 				<td>{{result.sector}}</td>
 				<td>{{result.industry}}</td>
