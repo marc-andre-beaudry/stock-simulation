@@ -28,10 +28,6 @@ App.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'views/stock/stock.html',
 		controller : 'stockController'
 	});
-	$routeProvider.when('/chart', {
-		templateUrl : 'views/chart/chart.html',
-		controller : 'chartController'
-	});
 
 	$routeProvider.otherwise({
 		redirectTo : '/home'

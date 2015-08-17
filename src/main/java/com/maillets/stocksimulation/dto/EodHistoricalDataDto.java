@@ -1,12 +1,13 @@
 package com.maillets.stocksimulation.dto;
 
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 import com.maillets.stocksimulation.entities.EodHistoricalData;
 
 public class EodHistoricalDataDto {
 
-	private String date;
+	private long date;
 	private double open;
 	private double high;
 	private double low;
@@ -14,11 +15,11 @@ public class EodHistoricalDataDto {
 	private long volume;
 	private double adjClose;
 
-	public String getDate() {
+	public long getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(long date) {
 		this.date = date;
 	}
 
@@ -72,7 +73,11 @@ public class EodHistoricalDataDto {
 
 	public static EodHistoricalDataDto fromEodHistoricalData(EodHistoricalData data) {
 		EodHistoricalDataDto dto = new EodHistoricalDataDto();
-		dto.setDate(data.getDate().format(DateTimeFormatter.BASIC_ISO_DATE));
+		LocalDate date = data.getDate();
+		ZoneId zoneId = ZoneId.systemDefault(); // or: ZoneId.of("Europe/Oslo");
+		long epoch = date.atStartOfDay(zoneId).toEpochSecond() * 1000;
+		//dto.setDate(data.getDate().format(DateTimeFormatter.BASIC_ISO_DATE));
+		dto.setDate(epoch);
 		dto.setOpen(data.getOpen());
 		dto.setHigh(data.getHigh());
 		dto.setLow(data.getLow());

@@ -34,6 +34,7 @@ public class MktDataController {
 	private EodHistoricalDataRepository eodHistoricalDataRepository;
 	
 	private final Comparator<Stock> stockComparatorBySymbol = Comparator.comparing(Stock::getSymbol);
+	private final Comparator<EodHistoricalDataDto> eodDataComparatorByDate = Comparator.comparing(EodHistoricalDataDto::getDate);
 
 	@RequestMapping("/stocks")
 	public List<StockDto> getStocks() {
@@ -63,6 +64,7 @@ public class MktDataController {
 		for(EodHistoricalData data : dataList) {
 			dtos.add(EodHistoricalDataDto.fromEodHistoricalData(data));
 		}
+		Collections.sort(dtos, eodDataComparatorByDate);
 		return dtos;
 	}
 
