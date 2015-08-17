@@ -1,6 +1,6 @@
 'use strict';
 
-var App = angular.module('StockSimulationApp', [ 'ngRoute']);
+var App = angular.module('StockSimulationApp', [ 'ngRoute' ]);
 
 // Declare app level module which depends on filters, and services
 App.config([ '$routeProvider', function($routeProvider) {
@@ -27,6 +27,10 @@ App.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/stock/:symbol', {
 		templateUrl : 'views/stock/stock.html',
 		controller : 'stockController'
+	});
+	$routeProvider.when('/chart', {
+		templateUrl : 'views/chart/chart.html',
+		controller : 'chartController'
 	});
 
 	$routeProvider.otherwise({
