@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.maillets.stocksimulation.dto.OrderDto;
 import com.maillets.stocksimulation.entities.Account;
+import com.maillets.stocksimulation.entities.EodHistoricalData;
 import com.maillets.stocksimulation.entities.OrderType;
 import com.maillets.stocksimulation.entities.Side;
 import com.maillets.stocksimulation.entities.Stock;
@@ -30,6 +31,7 @@ import com.maillets.stocksimulation.model.MktDataProviderImpl;
 import com.maillets.stocksimulation.model.OrderBooker;
 import com.maillets.stocksimulation.model.OrderBookerImpl;
 import com.maillets.stocksimulation.repository.AccountRepository;
+import com.maillets.stocksimulation.repository.EodHistoricalDataRepository;
 import com.maillets.stocksimulation.repository.ExecutionRepository;
 import com.maillets.stocksimulation.repository.OrderRepository;
 import com.maillets.stocksimulation.repository.PositionRepository;
@@ -60,6 +62,9 @@ public class Application {
 	private StockRepository stockRepository;
 	@Autowired
 	private WatchListRepository watchListRepository;
+	@Autowired
+	private EodHistoricalDataRepository eodHistoricalDataRepository;
+	
 	private final Comparator<Stock> stockComparatorByMktCap = Comparator.comparing(Stock::getMarketCap);
 
 	@Bean
@@ -98,6 +103,10 @@ public class Application {
 				}
 				stockRepository.save(stocksToAdd);
 				stockRepository.flush();
+				
+				List<EodHistoricalData> data = EodHistoricalSeedLoader.load("/aapl_eod_seed.data");
+				eodHistoricalDataRepository.save(data);
+				eodHistoricalDataRepository.flush();
 
 				User user = new User();
 				user.setFirstName("Marc-Andre");

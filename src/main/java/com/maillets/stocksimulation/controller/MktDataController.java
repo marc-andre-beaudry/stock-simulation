@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.maillets.stocksimulation.controller.exception.EntityNotFoundException;
+import com.maillets.stocksimulation.dto.EodHistoricalDataDto;
 import com.maillets.stocksimulation.dto.StockDto;
 import com.maillets.stocksimulation.dto.StockSummaryDto;
+import com.maillets.stocksimulation.entities.EodHistoricalData;
 import com.maillets.stocksimulation.entities.Stock;
 import com.maillets.stocksimulation.model.MktDataProvider;
+import com.maillets.stocksimulation.repository.EodHistoricalDataRepository;
 import com.maillets.stocksimulation.repository.StockRepository;
 
 @RestController
@@ -27,6 +30,9 @@ public class MktDataController {
 	@Autowired
 	private StockRepository stockRepository;
 
+	@Autowired
+	private EodHistoricalDataRepository eodHistoricalDataRepository;
+	
 	private final Comparator<Stock> stockComparatorBySymbol = Comparator.comparing(Stock::getSymbol);
 
 	@RequestMapping("/stocks")
@@ -48,6 +54,16 @@ public class MktDataController {
 		} else {
 			throw new EntityNotFoundException("[" + symbol + "] not found");
 		}
+	}
+	
+	@RequestMapping("/eod/{symbol}")
+	public List<EodHistoricalDataDto> getEodHistoricalData(@PathVariable(value = "symbol") String symbol) {
+		List<EodHistoricalData> dataList = eodHistoricalDataRepository.findAll();
+		List<EodHistoricalDataDto> dtos = new ArrayList<>();
+		for(EodHistoricalData data : dataList) {
+			dtos.add(EodHistoricalDataDto.fromEodHistoricalData(data));
+		}
+		return dtos;
 	}
 
 	@RequestMapping("/summary/{symbol}")
