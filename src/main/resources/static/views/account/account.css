@@ -1,0 +1,18 @@
+.buyStyle {
+	color: #77B300;
+}
+
+.sellStyle {
+	color: #CC0000;
+}
+
+.positivePnlStyle {
+	color: #77B300;
+}
+
+.negativePnlStyle {
+	color: #CC0000;
+}
+
+.mktOrderStyle {
+	color: #FF8800;
