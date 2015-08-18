@@ -21,7 +21,7 @@ Highcharts.theme = {
 				x2 : 1,
 				y2 : 1
 			},
-			stops : [ [ 0, '#2a2a2b' ], [ 1, '#3e3e40' ] ]
+			stops : [ [ 0, '#080808' ], [ 1, '#080808' ] ]
 		},
 		plotBorderColor : '#606063'
 	},

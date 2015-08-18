@@ -5,6 +5,8 @@
 	<div class="panel-body">
 		<table class="table table-hover table-striped">
 			<tr>
+				<td>Symbol</td>
+				<td>{{stockInfo.symbol}}</td>
 				<td width="25%"><div class="input-group">
 						<input
 							class="form-control"
@@ -17,6 +19,10 @@
 						class="btn btn-success btn-block"
 						ng-click="buyStock()"
 					>Buy</button></td>
+			</tr>
+			<tr>
+				<td>Name</td>
+				<td>{{stockInfo.name}}</td>
 				<td width="25%"><div class="input-group">
 						<input
 							class="form-control"
@@ -31,25 +37,20 @@
 					>Sell</button></td>
 			</tr>
 			<tr>
-				<td>Symbol</td>
-				<td>{{stockInfo.symbol}}</td>
-			</tr>
-			<tr>
-				<td>Name</td>
-				<td>{{stockInfo.name}}</td>
-			</tr>
-			<tr>
 				<td>Sector</td>
 				<td>{{stockInfo.sector}}</td>
+				<td></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td>Industry</td>
 				<td>{{stockInfo.industry}}</td>
+				<td></td>
+				<td></td>
 			</tr>
 		</table>
 	</div>
 </div>
-
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">Quotes & Fundamentals</h3>
@@ -125,12 +126,14 @@
 		</div>
 	</div>
 </div>
-
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">Historical Prices</h3>
 	</div>
 	<div class="panel-body">
-		<div id="container" style="height: 400px; min-width: 310px"></div>
+		<div
+			id="container"
+			style="height: 400px; min-width: 310px"
+		></div>
 	</div>
 </div>

@@ -2,7 +2,7 @@ App.factory('stockService', function($http) {
 	return {
 		getStockSummary : function(symbol) {
 			return $http.get('/api/mktdata/summary/' + symbol);
-		}, 
+		},
 		getEodHistoricalData : function(symbol) {
 			return $http.get('/api/mktdata/eod/' + symbol);
 		}
@@ -10,7 +10,7 @@ App.factory('stockService', function($http) {
 });
 
 App.controller('stockController', function($scope, $http, $location,
-		$routeParams, stockService, watchListService, searchService,
+		$routeParams, $filter, stockService, watchListService, searchService,
 		accountService) {
 
 	if ($routeParams.symbol == undefined || $routeParams.symbol == '') {
@@ -57,27 +57,29 @@ App.controller('stockController', function($scope, $http, $location,
 			handleGetStockSummarySuccess);
 	searchService.getCompany($routeParams.symbol).success(
 			handleGetCompanySuccess);
-	
+
 	var handleGetEodHistoricalDataSuccess = function(data) {
 		var adjustedData = [];
 		for (var i = 0; i < data.length; i++) {
 			var eodData = data[i];
-			var arr = [ eodData.date, eodData.open, eodData.high, eodData.low,
-					eodData.close ];
+			var arr = [ eodData.date, $filter('formatPriceKeepNumber')(eodData.open),
+					$filter('formatPriceKeepNumber')(eodData.high),
+					$filter('formatPriceKeepNumber')(eodData.low),
+					$filter('formatPriceKeepNumber')(eodData.close) ];
 			adjustedData.push(arr);
 		}
 		// create the chart
 		$('#container').highcharts('StockChart', {
 
 			rangeSelector : {
-				selected : 2
+				selected : 5
 			},
 			title : {
-				text : 'AAPL Stock Price'
+				text : $scope.stock.symbol + ' EOD'
 			},
 			series : [ {
 				type : 'ohlc',
-				name : 'AAPL Stock Price',
+				name : $scope.stock.symbol,
 				data : adjustedData,
 				dataGrouping : {
 					units : [ [ 'week', // unit name

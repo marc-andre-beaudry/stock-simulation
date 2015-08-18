@@ -30,11 +30,12 @@ public class EodHistoricalSeedLoader {
 		EodHistoricalData data = new EodHistoricalData();
 		try {
 			String[] splittedLine = line.split(",");
+			double ratio = Double.parseDouble(splittedLine[6]) / Double.parseDouble(splittedLine[4]);
 			data.setDate(LocalDate.parse(splittedLine[0]));
-			data.setOpen(Double.parseDouble(splittedLine[1]));
-			data.setHigh(Double.parseDouble(splittedLine[2]));
-			data.setLow(Double.parseDouble(splittedLine[3]));
-			data.setClose(Double.parseDouble(splittedLine[4]));
+			data.setOpen(ratio * Double.parseDouble(splittedLine[1]));
+			data.setHigh(ratio * Double.parseDouble(splittedLine[2]));
+			data.setLow(ratio * Double.parseDouble(splittedLine[3]));
+			data.setClose(ratio * Double.parseDouble(splittedLine[4]));
 			data.setVolume(Long.parseLong(splittedLine[5]));
 			data.setAdjClose(Double.parseDouble(splittedLine[6]));
 		} catch (Throwable ex) {

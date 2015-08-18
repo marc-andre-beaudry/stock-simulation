@@ -17,6 +17,12 @@ App
 					};
 				});
 
+App.filter('formatPriceKeepNumber', function() {
+	return function(input) {
+		return Math.round(input * 100) / 100
+	};
+});
+
 App.filter('formatMoney',
 		function() {
 			return function(num) {
