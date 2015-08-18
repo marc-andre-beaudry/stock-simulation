@@ -28,7 +28,6 @@ App.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'views/stock/stock.html',
 		controller : 'stockController'
 	});
-
 	$routeProvider.otherwise({
 		redirectTo : '/home'
 	});

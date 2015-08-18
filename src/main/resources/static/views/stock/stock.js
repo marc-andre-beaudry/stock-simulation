@@ -1,14 +1,3 @@
-App.factory('stockService', function($http) {
-	return {
-		getStockSummary : function(symbol) {
-			return $http.get('/api/mktdata/summary/' + symbol);
-		},
-		getEodHistoricalData : function(symbol) {
-			return $http.get('/api/mktdata/eod/' + symbol);
-		}
-	};
-});
-
 App.controller('stockController', function($scope, $http, $location,
 		$routeParams, $filter, stockService, watchListService, searchService,
 		accountService) {
