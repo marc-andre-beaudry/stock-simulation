@@ -140,7 +140,7 @@ public class AccountController {
 			@PathVariable(value = "orderId") String orderId) {
 		logger.debug("DELETE /" + accountId + "/orders/" + orderId);
 
-		Account account = validateAndGetPlayer(accountId);
+		//Account account = validateAndGetPlayer(accountId);
 		throw new UnsupportedOperationException();
 	}
 
@@ -168,18 +168,18 @@ public class AccountController {
 		}
 	}
 
-	private Order validateAndGetAccountOrder(Account account, String id) {
-		Optional<Order> order;
-		try {
-			final int parsedInt = Integer.parseInt(id);
-			order = account.getOrders().stream().filter(x -> x.getId() == parsedInt).findFirst();
-		} catch (NumberFormatException e) {
-			throw new BadRequestException();
-		}
-
-		if (!order.isPresent()) {
-			throw new EntityNotFoundException(id);
-		}
-		return order.get();
-	}
+//	private Order validateAndGetAccountOrder(Account account, String id) {
+//		Optional<Order> order;
+//		try {
+//			final int parsedInt = Integer.parseInt(id);
+//			order = account.getOrders().stream().filter(x -> x.getId() == parsedInt).findFirst();
+//		} catch (NumberFormatException e) {
+//			throw new BadRequestException();
+//		}
+//
+//		if (!order.isPresent()) {
+//			throw new EntityNotFoundException(id);
+//		}
+//		return order.get();
+//	}
 }
