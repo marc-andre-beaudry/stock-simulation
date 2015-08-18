@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/marc-andre-beaudry/stock-simulation.svg?branch=master)
+Branch (master) : ![Build Status](https://travis-ci.org/marc-andre-beaudry/stock-simulation.svg?branch=master)
 
 Stock Simulation
 =========
