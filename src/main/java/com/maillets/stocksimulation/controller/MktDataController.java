@@ -71,6 +71,7 @@ public class MktDataController {
 	@RequestMapping("/summary/{symbol}")
 	public StockSummaryDto summaryForSymbol(@PathVariable(value = "symbol") String symbol) {
 		StockSummaryDto dto = new StockSummaryDto();
+		dto.setSymbol(symbol);
 		dto.setAskPrice(107.56);
 		dto.setAskSize(1000);
 		dto.setBidPrice(106.32);

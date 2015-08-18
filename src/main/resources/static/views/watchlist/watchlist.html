@@ -1,16 +1,22 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">My Watchlist - {{stock.symbol}}</h3>
+		<h3 class="panel-title">My Watchlist - {{watchList.name}}</h3>
 	</div>
 	<div class="panel-body">
 		<table class="table table-hover table-striped">
 			<tr>
-				<th>Symbol</th>
-				<th>Name</th>
+				<th witdh="20%">Symbol</th>
+				<th witdh="20%">Name</th>
+				<th witdh="20%">Bid</th>
+				<th witdh="20%">Ask</th>
+				<th witdh="20%">Volume</th>
 			</tr>
 			<tr ng-repeat='stock in watchList.stocks'>
 				<td><a ng-href="#/stock/{{stock.symbol}}">{{stock.symbol}}</a></td>
 				<td>{{stock.name}}</td>
+				<td>{{stock.stockQuote.bidPrice}} x {{stock.stockQuote.bidSize}}</td>
+				<td>{{stock.stockQuote.askPrice}} x {{stock.stockQuote.askSize}}</td>
+				<td>{{stock.stockQuote.volume}}</td>
 			</tr>
 		</table>
 	</div>

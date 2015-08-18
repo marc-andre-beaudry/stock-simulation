@@ -2,6 +2,7 @@ package com.maillets.stocksimulation.dto;
 
 public class StockSummaryDto {
 
+	private String symbol;
 	private double previousClose;
 	private double open;
 	private double low;
@@ -19,6 +20,14 @@ public class StockSummaryDto {
 	private double pe;
 	private double beta;
 	private int avgVolume;
+
+	public String getSymbol() {
+		return symbol;
+	}
+
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
+	}
 
 	public double getPreviousClose() {
 		return previousClose;
