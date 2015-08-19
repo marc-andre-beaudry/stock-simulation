@@ -22,6 +22,7 @@ public class Stock {
 	private String symbol;
 	@Column(nullable = false)
 	private String name;
+    @Column(name="MARKETCAP")
 	private double marketCap;
 	private String ipoYear;
 	private String sector;

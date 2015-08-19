@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.maillets.stocksimulation.controller.exception.EntityNotFoundException;
@@ -122,14 +123,24 @@ public class MktDataController {
 	}
 
 	@RequestMapping("/sector")
-	public List<SectorDto> findSector() {
+	public List<SectorDto> findSector(@RequestParam(value = "aggregation") String aggregation) {
 		List<SectorDto> dtos = new ArrayList<>();
-		List<Object[]> sectors = stockRepository.getSectors();
-		for(Object[] sector: sectors) {
-			SectorDto dto = new SectorDto();
-			dto.setName((String)sector[0]);
-			dto.setCount(((BigInteger)sector[1]).intValue());
-			dtos.add(dto);
+		if(aggregation.equalsIgnoreCase("marketCap")) {
+			List<Object[]> sectors = stockRepository.getMktCapBySector();
+			for(Object[] sector: sectors) {
+				SectorDto dto = new SectorDto();
+				dto.setName((String)sector[0]);
+				dto.setCount((double)sector[1]);
+				dtos.add(dto);
+			}
+		} else {
+			List<Object[]> sectors = stockRepository.getCountBySector();
+			for(Object[] sector: sectors) {
+				SectorDto dto = new SectorDto();
+				dto.setName((String)sector[0]);
+				dto.setCount(((BigInteger)sector[1]).intValue());
+				dtos.add(dto);
+			}
 		}
 		return dtos;
 	}
@@ -137,7 +148,7 @@ public class MktDataController {
 	@RequestMapping("/sector/{sectorName}")
 	public List<IndustryDto> findIndustry(@PathVariable(value = "sectorName") String sectorName) {	
 		List<IndustryDto> dtos = new ArrayList<>();
-		List<Object[]> industries = stockRepository.getIndustries(sectorName);
+		List<Object[]> industries = stockRepository.getCountByIndustryForSector(sectorName);
 		for(Object[] industry: industries) {
 			IndustryDto dto = new IndustryDto();
 			dto.setSector(sectorName);
