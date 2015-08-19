@@ -1,1 +1,92 @@
-<h1>Welcome Home!</h1>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Price Movers</h3>
+	</div>
+	<div class="panel-body">
+		<div>
+			<table class="table table-hover table-striped">
+				<tr>
+					<th
+						width="120px"
+						class="gainersStyle"
+					>Gainers</th>
+					<th width="33%"></th>
+					<th width="33%">Change</th>
+					<th width="33%">Mkt Cap</th>
+				</tr>
+				<tr ng-repeat='stock in priceGainers'>
+					<td><a ng-href="#/stock/{{stock.symbol}}">{{stock.symbol}}</a></td>
+					<td>{{stock.name}}</td>
+					<td class="gainersStyle">{{stock.change|formatPrice}}</td>
+					<td>{{stock.marketCap|formatMoney}}</td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-hover table-striped">
+				<tr>
+					<th
+						width="120px"
+						class="losersStyle"
+					>Losers</th>
+					<th width="33%"></th>
+					<th width="33%">Change</th>
+					<th width="33%">Mkt Cap</th>
+				</tr>
+				<tr ng-repeat='stock in priceLosers'>
+					<td><a ng-href="#/stock/{{stock.symbol}}">{{stock.symbol}}</a></td>
+					<td>{{stock.name}}</td>
+					<td class="losersStyle">{{stock.change|formatPrice}}</td>
+					<td>{{stock.marketCap|formatMoney}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Market Cap Movers</h3>
+	</div>
+	<div class="panel-body">
+		<div>
+			<table class="table table-hover table-striped">
+				<tr>
+					<th
+						width="120px"
+						class="gainersStyle"
+					>Gainers</th>
+					<th width="33%"></th>
+					<th width="33%">Change</th>
+					<th width="33%">Mkt Cap</th>
+				</tr>
+				<tr ng-repeat='stock in marketCapGainers'>
+					<td><a ng-href="#/stock/{{stock.symbol}}">{{stock.symbol}}</a></td>
+					<td>{{stock.name}}</td>
+					<td class="gainersStyle">{{stock.change|formatPrice}}</td>
+					<td>{{stock.marketCap|formatMoney}}</td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-hover table-striped">
+				<tr>
+					<th
+						width="120px"
+						class="losersStyle"
+					>Losers</th>
+					<th width="33%"></th>
+					<th width="33%">Change</th>
+					<th width="33%">Mkt Cap</th>
+				</tr>
+				<tr ng-repeat='stock in marketCapLosers'>
+					<td><a ng-href="#/stock/{{stock.symbol}}">{{stock.symbol}}</a></td>
+					<td>{{stock.name}}</td>
+					<td class="losersStyle">{{stock.change|formatPrice}}</td>
+					<td>{{stock.marketCap|formatMoney}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
