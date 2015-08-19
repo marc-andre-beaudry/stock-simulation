@@ -28,6 +28,10 @@ App.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'views/stock/stock.html',
 		controller : 'stockController'
 	});
+	$routeProvider.when('/explorer', {
+		templateUrl : 'views/explorer/explorer.html',
+		controller : 'explorerController'
+	});
 	$routeProvider.otherwise({
 		redirectTo : '/home'
 	});

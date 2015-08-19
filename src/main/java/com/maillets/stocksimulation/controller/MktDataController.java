@@ -1,5 +1,6 @@
 package com.maillets.stocksimulation.controller;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.maillets.stocksimulation.controller.exception.EntityNotFoundException;
 import com.maillets.stocksimulation.dto.EodHistoricalDataDto;
+import com.maillets.stocksimulation.dto.IndustryDto;
 import com.maillets.stocksimulation.dto.MoverDto;
 import com.maillets.stocksimulation.dto.MoverType;
+import com.maillets.stocksimulation.dto.SectorDto;
 import com.maillets.stocksimulation.dto.StockDto;
 import com.maillets.stocksimulation.dto.StockSummaryDto;
 import com.maillets.stocksimulation.entities.EodHistoricalData;
@@ -115,8 +118,33 @@ public class MktDataController {
 				dtos.add(dto);
 			}
 		}
-
 		return dtos;
 	}
 
+	@RequestMapping("/sector")
+	public List<SectorDto> findSector() {
+		List<SectorDto> dtos = new ArrayList<>();
+		List<Object[]> sectors = stockRepository.getSectors();
+		for(Object[] sector: sectors) {
+			SectorDto dto = new SectorDto();
+			dto.setName((String)sector[0]);
+			dto.setCount(((BigInteger)sector[1]).intValue());
+			dtos.add(dto);
+		}
+		return dtos;
+	}
+	
+	@RequestMapping("/sector/{sectorName}")
+	public List<IndustryDto> findIndustry(@PathVariable(value = "sectorName") String sectorName) {	
+		List<IndustryDto> dtos = new ArrayList<>();
+		List<Object[]> industries = stockRepository.getIndustries(sectorName);
+		for(Object[] industry: industries) {
+			IndustryDto dto = new IndustryDto();
+			dto.setSector(sectorName);
+			dto.setName((String)industry[0]);
+			dto.setCount(((BigInteger)industry[1]).intValue());
+			dtos.add(dto);
+		}
+		return dtos;
+	}
 }
