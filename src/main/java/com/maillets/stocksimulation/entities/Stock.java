@@ -7,7 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,6 +32,10 @@ public class Stock {
 
 	@ManyToMany(mappedBy = "stocks")
 	private Set<WatchList> watchLists = new HashSet<>();
+	
+	@OneToOne
+	@JoinColumn(name="profileId")
+	private StockProfile stockProfile;
 
 	public Integer getId() {
 		return id;
@@ -93,5 +99,13 @@ public class Stock {
 
 	public void setWatchLists(Set<WatchList> watchLists) {
 		this.watchLists = watchLists;
+	}
+
+	public StockProfile getStockProfile() {
+		return stockProfile;
+	}
+
+	public void setStockProfile(StockProfile stockProfile) {
+		this.stockProfile = stockProfile;
 	}
 }

@@ -3,6 +3,9 @@ App.factory('stockService', function($http) {
 		getStockSummary : function(symbol) {
 			return $http.get('/api/mktdata/summary/' + symbol);
 		},
+		getStockProfile : function(symbol) {
+			return $http.get('/api/mktdata/stocks/' + symbol + '/profile');
+		},
 		getEodHistoricalData : function(symbol) {
 			return $http.get('/api/mktdata/eod/' + symbol);
 		},

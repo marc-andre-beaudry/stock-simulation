@@ -11,6 +11,7 @@ App.controller('stockController', function($scope, $http, $location,
 	};
 	$scope.stockQuote = {};
 	$scope.stockInfo = {};
+	$scope.stockProfile = {};
 	$scope.buyQty = 100;
 	$scope.sellQty = 100;
 
@@ -34,24 +35,29 @@ App.controller('stockController', function($scope, $http, $location,
 		accountService.addOrUpdateOrder('1', order);
 	}
 
+	var handleError = function(data, status) {
+		console.log(data);
+		console.log(status);
+	};
+
 	var handleGetStockSummarySuccess = function(data, status) {
 		$scope.stockQuote = data;
+	};
+
+	var handleGetStockProfileSuccess = function(data, status) {
+		$scope.stockProfile = data;
 	};
 
 	var handleGetCompanySuccess = function(data, status) {
 		$scope.stockInfo = data;
 	};
 
-	stockService.getStockSummary($routeParams.symbol).success(
-			handleGetStockSummarySuccess);
-	searchService.getCompany($routeParams.symbol).success(
-			handleGetCompanySuccess);
-
 	var handleGetEodHistoricalDataSuccess = function(data) {
 		var adjustedData = [];
 		for (var i = 0; i < data.length; i++) {
 			var eodData = data[i];
-			var arr = [ eodData.date, $filter('formatPriceKeepNumber')(eodData.open),
+			var arr = [ eodData.date,
+					$filter('formatPriceKeepNumber')(eodData.open),
 					$filter('formatPriceKeepNumber')(eodData.high),
 					$filter('formatPriceKeepNumber')(eodData.low),
 					$filter('formatPriceKeepNumber')(eodData.close) ];
@@ -78,6 +84,13 @@ App.controller('stockController', function($scope, $http, $location,
 			} ]
 		});
 	};
+	stockService.getStockSummary($routeParams.symbol).success(
+			handleGetStockSummarySuccess);
+	searchService.getCompany($routeParams.symbol).success(
+			handleGetCompanySuccess);
+
 	stockService.getEodHistoricalData($routeParams.symbol).success(
 			handleGetEodHistoricalDataSuccess);
+	stockService.getStockProfile($routeParams.symbol).success(
+			handleGetStockProfileSuccess).error(handleError);
 });
