@@ -29,6 +29,7 @@
 		<table class="table table-hover table-striped">
 			<tr>
 				<th>Symbol</th>
+				<th>Exchange</th>
 				<th>Name</th>
 				<th>Market Cap</th>
 				<th>IPO Year</th>
@@ -38,6 +39,7 @@
 			</tr>
 			<tr ng-repeat='result in results'>
 				<td><a ng-href="#/stock/{{result.symbol}}">{{result.symbol}}</a></td>
+				<td>{{result.exchange}}</td>
 				<td>{{result.name}}</td>
 				<td>{{result.marketCap|formatMoney}}</td>
 				<td>{{result.ipoYear}}</td>

@@ -22,9 +22,10 @@ public class Stock {
 
 	@Column(nullable = false)
 	private String symbol;
+	private String exchange;
 	@Column(nullable = false)
 	private String name;
-    @Column(name="MARKETCAP")
+	@Column(name = "MARKETCAP")
 	private double marketCap;
 	private String ipoYear;
 	private String sector;
@@ -32,9 +33,9 @@ public class Stock {
 
 	@ManyToMany(mappedBy = "stocks")
 	private Set<WatchList> watchLists = new HashSet<>();
-	
+
 	@OneToOne
-	@JoinColumn(name="profileId")
+	@JoinColumn(name = "profileId")
 	private StockProfile stockProfile;
 
 	public Integer getId() {
@@ -51,6 +52,14 @@ public class Stock {
 
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
+	}
+
+	public String getExchange() {
+		return exchange;
+	}
+
+	public void setExchange(String exchange) {
+		this.exchange = exchange;
 	}
 
 	public String getName() {

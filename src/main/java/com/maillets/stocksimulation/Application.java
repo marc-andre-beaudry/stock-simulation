@@ -64,7 +64,7 @@ public class Application {
 	private WatchListRepository watchListRepository;
 	@Autowired
 	private EodHistoricalDataRepository eodHistoricalDataRepository;
-	
+
 	private final Comparator<Stock> stockComparatorByMktCap = Comparator.comparing(Stock::getMarketCap);
 
 	@Bean
@@ -89,11 +89,24 @@ public class Application {
 		return arg -> {
 
 			try {
+				List<String> nasdaqSymbolList = SymbolMappingLoader.load("/nasdaq.data");
+				List<String> nyseSymbolList = SymbolMappingLoader.load("/nyse.data");
+				List<String> amexSymbolList = SymbolMappingLoader.load("/amex.data");
 				List<Company> companies = CompanySeedLoader.load("/company_seed.data");
 				List<Stock> stocksToAdd = new ArrayList<>();
 				for (Company company : companies) {
 					Stock stock = new Stock();
-					stock.setSymbol(company.getSymbol());
+					String symbol = company.getSymbol();
+					stock.setSymbol(symbol);
+					if (nasdaqSymbolList.contains(symbol)) {
+						stock.setExchange("NASDAQ");
+					} else if (nyseSymbolList.contains(symbol)) {
+						stock.setExchange("NYSE");
+					} else if (amexSymbolList.contains(symbol)) {
+						stock.setExchange("AMEX");
+					} else {
+						stock.setExchange("UNKNOWN");
+					}
 					stock.setName(company.getName());
 					stock.setSector(company.getSector());
 					stock.setIndustry(company.getIndustry());
@@ -103,7 +116,7 @@ public class Application {
 				}
 				stockRepository.save(stocksToAdd);
 				stockRepository.flush();
-				
+
 				List<EodHistoricalData> data = EodHistoricalSeedLoader.load("/aapl_eod_seed.data");
 				eodHistoricalDataRepository.save(data);
 				eodHistoricalDataRepository.flush();

@@ -5,6 +5,7 @@ import com.maillets.stocksimulation.entities.Stock;
 public class StockDto {
 
 	private String symbol;
+	private String exchange;
 	private String name;
 	private double marketCap;
 	private String ipoYear;
@@ -17,6 +18,14 @@ public class StockDto {
 
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
+	}
+
+	public String getExchange() {
+		return exchange;
+	}
+
+	public void setExchange(String exchange) {
+		this.exchange = exchange;
 	}
 
 	public String getName() {
@@ -62,6 +71,7 @@ public class StockDto {
 	public static StockDto fromStock(Stock stock) {
 		StockDto dto = new StockDto();
 		dto.setSymbol(stock.getSymbol());
+		dto.setExchange(stock.getExchange());
 		dto.setName(stock.getName());
 		dto.setSector(stock.getSector());
 		dto.setIndustry(stock.getIndustry());
