@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ import com.maillets.stocksimulation.entities.EodHistoricalData;
 import com.maillets.stocksimulation.entities.OrderType;
 import com.maillets.stocksimulation.entities.Side;
 import com.maillets.stocksimulation.entities.Stock;
+import com.maillets.stocksimulation.entities.StockProfile;
 import com.maillets.stocksimulation.entities.User;
 import com.maillets.stocksimulation.entities.WatchList;
 import com.maillets.stocksimulation.model.CommissionModel;
@@ -35,6 +37,7 @@ import com.maillets.stocksimulation.repository.EodHistoricalDataRepository;
 import com.maillets.stocksimulation.repository.ExecutionRepository;
 import com.maillets.stocksimulation.repository.OrderRepository;
 import com.maillets.stocksimulation.repository.PositionRepository;
+import com.maillets.stocksimulation.repository.StockProfileRepository;
 import com.maillets.stocksimulation.repository.StockRepository;
 import com.maillets.stocksimulation.repository.UserRepository;
 import com.maillets.stocksimulation.repository.WatchListRepository;
@@ -61,6 +64,8 @@ public class Application {
 	@Autowired
 	private StockRepository stockRepository;
 	@Autowired
+	private StockProfileRepository stockProfileRepository;
+	@Autowired
 	private WatchListRepository watchListRepository;
 	@Autowired
 	private EodHistoricalDataRepository eodHistoricalDataRepository;
@@ -79,8 +84,8 @@ public class Application {
 
 	@Bean
 	public OrderBooker orderBooker() {
-		return new OrderBookerImpl(orderRepository, executionRepository, positionRepository,
-				mktDataProvider(), commissionModel());
+		return new OrderBookerImpl(orderRepository, executionRepository, positionRepository, mktDataProvider(),
+				commissionModel());
 	}
 
 	@Bean
@@ -92,6 +97,8 @@ public class Application {
 				List<String> nasdaqSymbolList = SymbolMappingLoader.load("/nasdaq.data");
 				List<String> nyseSymbolList = SymbolMappingLoader.load("/nyse.data");
 				List<String> amexSymbolList = SymbolMappingLoader.load("/amex.data");
+				List<SymbolDescription> symbolDescriptionList = SymbolDescriptionLoader
+						.load("/symbol_description.data");
 				List<Company> companies = CompanySeedLoader.load("/company_seed.data");
 				List<Stock> stocksToAdd = new ArrayList<>();
 				for (Company company : companies) {
@@ -106,6 +113,14 @@ public class Application {
 						stock.setExchange("AMEX");
 					} else {
 						stock.setExchange("UNKNOWN");
+					}
+					Optional<SymbolDescription> description = symbolDescriptionList.stream()
+							.filter(x -> x.getSymbol().equalsIgnoreCase(symbol)).findAny();
+					if (description.isPresent()) {
+						StockProfile profile = new StockProfile();
+						profile.setSummary(description.get().getDescription());
+						profile.setStock(stock);
+						stock.setStockProfile(profile);
 					}
 					stock.setName(company.getName());
 					stock.setSector(company.getSector());

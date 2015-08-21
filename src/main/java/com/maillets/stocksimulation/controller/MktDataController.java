@@ -26,6 +26,7 @@ import com.maillets.stocksimulation.dto.StockProfileDto;
 import com.maillets.stocksimulation.dto.StockSummaryDto;
 import com.maillets.stocksimulation.entities.EodHistoricalData;
 import com.maillets.stocksimulation.entities.Stock;
+import com.maillets.stocksimulation.entities.StockProfile;
 import com.maillets.stocksimulation.model.MktDataProvider;
 import com.maillets.stocksimulation.repository.EodHistoricalDataRepository;
 import com.maillets.stocksimulation.repository.StockRepository;
@@ -72,8 +73,12 @@ public class MktDataController {
 		List<Stock> stocks = stockRepository.findBySymbol(symbol);
 		if (stocks.size() == 1) {
 			StockProfileDto dto = new StockProfileDto();
-			// TODO replace mock data
-			dto.setSummary("Apple Inc. designs, manufactures, and markets mobile communication and media devices, personal computers, watches, and portable digital music players worldwide. The company also sells related software, services, accessories, networking solutions, and third-party digital content and applications. It offers iPhone, a line of smartphones that comprise a phone, music player, and Internet device; iPad, a line of multi-purpose tablets; Mac, a line of desktop and portable personal computers; iPod, a line of portable digital music and media players, such as iPod touch, iPod nano, and iPod shuffle; and Apple Watches, personal electronic devices that combine watch technology with an iOS-based user interface. The company also provides iTunes app and the iTunes Store; Mac App Store that allows customers to discover, download, and install Mac applications; iCloud, a cloud service; Apple Pay for making mobile payments; Apple TV, a portfolio of consumer and professional software applications; iOS and OS X operating systems software; iLife, a consumer-oriented digital lifestyle software application suite; iWork, an integrated productivity suite designed to help users create, present, and publish documents, presentations, and spreadsheets; and other application software, including Final Cut Pro, Logic Pro X, and its FileMaker Pro database software. In addition, it offers various Apple-branded and third-party Mac-compatible and iOS-compatible accessories, including headphones, cases, displays, storage devices, and various other connectivity and computing products and supplies. The company sells and delivers digital content and applications through the iTunes Store, App Store, iBooks Store, and Mac App Store; and sells its products through its retail stores, online stores, and direct sales force, as well as through third-party cellular network carriers, wholesalers, retailers, and value-added resellers. The company was founded in 1977 and is headquartered in Cupertino, California.");
+			StockProfile profile = stocks.get(0).getStockProfile();
+			if(profile != null && profile.getSummary() != null && !profile.getSummary().isEmpty()) {
+				dto.setSummary(profile.getSummary());
+			} else {
+				dto.setSummary("No summary available");
+			}
 			return dto;
 		} else {
 			throw new EntityNotFoundException("[" + symbol + "] not found");

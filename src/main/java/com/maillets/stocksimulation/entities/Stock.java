@@ -3,11 +3,11 @@ package com.maillets.stocksimulation.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -34,8 +34,7 @@ public class Stock {
 	@ManyToMany(mappedBy = "stocks")
 	private Set<WatchList> watchLists = new HashSet<>();
 
-	@OneToOne
-	@JoinColumn(name = "profileId")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "stock")
 	private StockProfile stockProfile;
 
 	public Integer getId() {
