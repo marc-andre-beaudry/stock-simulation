@@ -37,7 +37,6 @@ import com.maillets.stocksimulation.repository.EodHistoricalDataRepository;
 import com.maillets.stocksimulation.repository.ExecutionRepository;
 import com.maillets.stocksimulation.repository.OrderRepository;
 import com.maillets.stocksimulation.repository.PositionRepository;
-import com.maillets.stocksimulation.repository.StockProfileRepository;
 import com.maillets.stocksimulation.repository.StockRepository;
 import com.maillets.stocksimulation.repository.UserRepository;
 import com.maillets.stocksimulation.repository.WatchListRepository;
@@ -63,8 +62,6 @@ public class Application {
 	private OrderBooker orderBooker;
 	@Autowired
 	private StockRepository stockRepository;
-	@Autowired
-	private StockProfileRepository stockProfileRepository;
 	@Autowired
 	private WatchListRepository watchListRepository;
 	@Autowired

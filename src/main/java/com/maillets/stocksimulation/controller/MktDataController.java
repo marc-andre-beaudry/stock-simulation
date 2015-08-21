@@ -27,7 +27,6 @@ import com.maillets.stocksimulation.dto.StockSummaryDto;
 import com.maillets.stocksimulation.entities.EodHistoricalData;
 import com.maillets.stocksimulation.entities.Stock;
 import com.maillets.stocksimulation.entities.StockProfile;
-import com.maillets.stocksimulation.model.MktDataProvider;
 import com.maillets.stocksimulation.repository.EodHistoricalDataRepository;
 import com.maillets.stocksimulation.repository.StockRepository;
 
@@ -36,16 +35,14 @@ import com.maillets.stocksimulation.repository.StockRepository;
 public class MktDataController {
 
 	@Autowired
-	private MktDataProvider provider;
-
-	@Autowired
 	private StockRepository stockRepository;
 
 	@Autowired
 	private EodHistoricalDataRepository eodHistoricalDataRepository;
 
 	private final Comparator<Stock> stockComparatorBySymbol = Comparator.comparing(Stock::getSymbol);
-	private final Comparator<EodHistoricalDataDto> eodDataComparatorByDate = Comparator.comparing(EodHistoricalDataDto::getDate);
+	private final Comparator<EodHistoricalDataDto> eodDataComparatorByDate = Comparator
+			.comparing(EodHistoricalDataDto::getDate);
 
 	@RequestMapping("/stocks")
 	public List<StockDto> getStocks() {
@@ -67,14 +64,14 @@ public class MktDataController {
 			throw new EntityNotFoundException("[" + symbol + "] not found");
 		}
 	}
-	
+
 	@RequestMapping("/stocks/{symbol}/profile")
 	public StockProfileDto getStockProfile(@PathVariable(value = "symbol") String symbol) {
 		List<Stock> stocks = stockRepository.findBySymbol(symbol);
 		if (stocks.size() == 1) {
 			StockProfileDto dto = new StockProfileDto();
 			StockProfile profile = stocks.get(0).getStockProfile();
-			if(profile != null && profile.getSummary() != null && !profile.getSummary().isEmpty()) {
+			if (profile != null && profile.getSummary() != null && !profile.getSummary().isEmpty()) {
 				dto.setSummary(profile.getSummary());
 			} else {
 				dto.setSummary("No summary available");
@@ -144,35 +141,35 @@ public class MktDataController {
 	@RequestMapping("/sector")
 	public List<SectorDto> findSector(@RequestParam(value = "aggregation") String aggregation) {
 		List<SectorDto> dtos = new ArrayList<>();
-		if(aggregation.equalsIgnoreCase("marketCap")) {
+		if (aggregation.equalsIgnoreCase("marketCap")) {
 			List<Object[]> sectors = stockRepository.getMktCapBySector();
-			for(Object[] sector: sectors) {
+			for (Object[] sector : sectors) {
 				SectorDto dto = new SectorDto();
-				dto.setName((String)sector[0]);
-				dto.setCount((double)sector[1]);
+				dto.setName((String) sector[0]);
+				dto.setCount((double) sector[1]);
 				dtos.add(dto);
 			}
 		} else {
 			List<Object[]> sectors = stockRepository.getCountBySector();
-			for(Object[] sector: sectors) {
+			for (Object[] sector : sectors) {
 				SectorDto dto = new SectorDto();
-				dto.setName((String)sector[0]);
-				dto.setCount(((BigInteger)sector[1]).intValue());
+				dto.setName((String) sector[0]);
+				dto.setCount(((BigInteger) sector[1]).intValue());
 				dtos.add(dto);
 			}
 		}
 		return dtos;
 	}
-	
+
 	@RequestMapping("/sector/{sectorName}")
-	public List<IndustryDto> findIndustry(@PathVariable(value = "sectorName") String sectorName) {	
+	public List<IndustryDto> findIndustry(@PathVariable(value = "sectorName") String sectorName) {
 		List<IndustryDto> dtos = new ArrayList<>();
 		List<Object[]> industries = stockRepository.getCountByIndustryForSector(sectorName);
-		for(Object[] industry: industries) {
+		for (Object[] industry : industries) {
 			IndustryDto dto = new IndustryDto();
 			dto.setSector(sectorName);
-			dto.setName((String)industry[0]);
-			dto.setCount(((BigInteger)industry[1]).intValue());
+			dto.setName((String) industry[0]);
+			dto.setCount(((BigInteger) industry[1]).intValue());
 			dtos.add(dto);
 		}
 		return dtos;
