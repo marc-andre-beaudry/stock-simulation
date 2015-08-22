@@ -14,7 +14,7 @@ public class SymbolDescriptionLoader {
 		List<SymbolDescription> data = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(
 				new InputStreamReader(SymbolMappingLoader.class.getResourceAsStream(source)))) {
-			data = br.lines().map(mapToSymbolDescription).collect(Collectors.toList());
+			data = br.lines().map(mapToSymbolDescription).filter(x -> x != null).collect(Collectors.toList());
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -23,9 +23,13 @@ public class SymbolDescriptionLoader {
 
 	private static Function<String, SymbolDescription> mapToSymbolDescription = (line) -> {
 		SymbolDescription data = new SymbolDescription();
-		String[] splittedLine = line.split("|");
-		data.setSymbol(splittedLine[0]);
-		data.setDescription(splittedLine[1]);
+		String[] splittedLine = line.split("\\|");
+		if (splittedLine.length == 2) {
+			data.setSymbol(splittedLine[0]);
+			data.setDescription(splittedLine[1]);
+		} else {
+			data = null;
+		}
 		return data;
 	};
 }
