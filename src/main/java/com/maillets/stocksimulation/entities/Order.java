@@ -1,6 +1,6 @@
 package com.maillets.stocksimulation.entities;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,9 +50,9 @@ public class Order {
 	private State state;
 
 	@Column(nullable = false)
-	private LocalTime creationTime;
+	private LocalDateTime creationTime;
 
-	private LocalTime updateTime;
+	private LocalDateTime updateTime;
 
 	@Column(nullable = false)
 	private double commissionCharged;
@@ -149,19 +149,19 @@ public class Order {
 		this.state = state;
 	}
 
-	public LocalTime getCreationTime() {
+	public LocalDateTime getCreationTime() {
 		return creationTime;
 	}
 
-	public void setCreationTime(LocalTime creationTime) {
+	public void setCreationTime(LocalDateTime creationTime) {
 		this.creationTime = creationTime;
 	}
 
-	public LocalTime getUpdateTime() {
+	public LocalDateTime getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(LocalTime updateTime) {
+	public void setUpdateTime(LocalDateTime updateTime) {
 		this.updateTime = updateTime;
 	}
 

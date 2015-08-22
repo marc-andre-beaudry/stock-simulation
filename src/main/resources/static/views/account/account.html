@@ -39,7 +39,7 @@
 			</tr>
 			<tr ng-repeat='position in positions'>
 				<td>{{position.id}}</td>
-				<td>{{position.symbol}}</td>
+				<td><a ng-href="#/stock/{{position.symbol}}">{{position.symbol}}</a></td>
 				<td>{{position.openQuantity}}</td>
 				<td>{{position.averageEntryPrice|formatPrice}}</td>
 				<td><span ng-class="{positivePnlStyle: position.closedPnL>0, negativePnlStyle: position.closedPnL<0}">{{position.closedPnL|formatPrice}}</span></td>
@@ -56,15 +56,17 @@
 		<table class="table table-hover table-striped">
 			<tr>
 				<th width="10px">#</th>
-				<th width="20%">Symbol</th>
-				<th width="20%">Side</th>
-				<th width="20%">Type</th>
-				<th width="20%">Qty</th>
-				<th width="20%">Avg Price</th>
+				<th width="100px">Create Timestamp</th>
+				<th width="100px">Symbol</th>
+				<th width="100px">Side</th>
+				<th width="100px">Type</th>
+				<th width="100px">Qty</th>
+				<th width="100px">Avg Price</th>
 			</tr>
 			<tr ng-repeat='order in orders'>
 				<td>{{order.id}}</td>
-				<td>{{order.symbol}}</td>
+				<td>{{order.creationTime}}</td>
+				<td><a ng-href="#/stock/{{order.symbol}}">{{order.symbol}}</a></td>
 				<td><strong ng-class="{buyStyle: order.side=='Buy', sellStyle: order.side=='Sell'}">{{order.side}}</strong></td>
 				<td><strong ng-class="{mktOrderStyle: order.orderType=='Market'}">{{order.orderType}}</strong></td>
 				<td>{{order.totalQuantity}}</td>
@@ -81,19 +83,21 @@
 		<table class="table table-hover table-striped">
 			<tr>
 				<th width="10px">#</th>
-				<th width="20%">Symbol</th>
-				<th width="20%">Side</th>
-				<th width="20%"></th>
-				<th width="20%">Qty</th>
-				<th width="20%">Price</th>
+				<th width="100px">Timestamp</th>
+				<th width="100px">Symbol</th>
+				<th width="100px">Side</th>
+				<th width="100px">Qty</th>
+				<th width="100px">Price</th>
+				<th width="100px">Commission</th>
 			</tr>
 			<tr ng-repeat='execution in executions'>
 				<td>{{execution.id}}</td>
-				<td>{{execution.symbol}}</td>
+				<td>{{execution.timestamp}}</td>
+				<td><a ng-href="#/stock/{{execution.symbol}}">{{execution.symbol}}</a></td>
 				<td><strong ng-class="{buyStyle: execution.side=='Buy', sellStyle: execution.side=='Sell'}">{{execution.side}}</strong></td>
-				<td></td>
 				<td>{{execution.quantity}}</td>
 				<td>{{execution.price|formatPrice}}</td>
+				<td>{{execution.commission|formatPrice}}</td>
 			</tr>
 		</table>
 	</div>

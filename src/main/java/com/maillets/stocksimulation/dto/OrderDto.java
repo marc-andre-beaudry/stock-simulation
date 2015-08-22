@@ -1,7 +1,5 @@
 package com.maillets.stocksimulation.dto;
 
-import java.time.LocalTime;
-
 import com.maillets.stocksimulation.entities.Order;
 import com.maillets.stocksimulation.entities.OrderType;
 import com.maillets.stocksimulation.entities.Side;
@@ -20,8 +18,8 @@ public class OrderDto {
 	private double avgExecPrice;
 	private double lastExecPrice;
 	private State state;
-	private LocalTime creationTime;
-	private LocalTime updateTime;
+	private String creationTime;
+	private String updateTime;
 	private double commissionCharged;
 	private int accountId;
 
@@ -113,19 +111,19 @@ public class OrderDto {
 		this.state = state;
 	}
 
-	public LocalTime getCreationTime() {
+	public String getCreationTime() {
 		return creationTime;
 	}
 
-	public void setCreationTime(LocalTime creationTime) {
+	public void setCreationTime(String creationTime) {
 		this.creationTime = creationTime;
 	}
 
-	public LocalTime getUpdateTime() {
+	public String getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(LocalTime updateTime) {
+	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
 	}
 
@@ -150,7 +148,7 @@ public class OrderDto {
 		dto.setAvgExecPrice(order.getAvgExecPrice());
 		dto.setCanceledQuantity(order.getCanceledQuantity());
 		dto.setCommissionCharged(order.getCommissionCharged());
-		dto.setCreationTime(order.getCreationTime());
+		dto.setCreationTime(order.getCreationTime().toString());
 		dto.setFilledQuantity(order.getFilledQuantity());
 		dto.setId(order.getId());
 		dto.setAccountId(order.getAccount().getId());
@@ -161,7 +159,9 @@ public class OrderDto {
 		dto.setState(order.getState());
 		dto.setSymbol(order.getSymbol());
 		dto.setTotalQuantity(order.getTotalQuantity());
-		dto.setUpdateTime(order.getUpdateTime());
+		if (order.getUpdateTime() != null) {
+			dto.setUpdateTime(order.getUpdateTime().toString());
+		}
 		return dto;
 	}
 }

@@ -5,7 +5,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.apache.xml.resolver.apps.xparse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +88,7 @@ public class AccountController {
 		List<Order> orders = new ArrayList<Order>(account.getOrders());
 		Collections.sort(orders, orderComparatorById);
 		List<OrderDto> orderDtos = new ArrayList<>();
-		for (Order order : orders) {
+		for (Order order : orders.stream().sorted((e1, e2) -> -e1.getCreationTime().compareTo(e2.getCreationTime())).collect(Collectors.toList())) {
 			orderDtos.add(OrderDto.fromOrder(order));
 		}
 		return orderDtos;
@@ -115,7 +117,7 @@ public class AccountController {
 		List<Execution> executions = new ArrayList<Execution>(account.getExecutions());
 		Collections.sort(executions, executionComparatorById);
 		List<ExecutionDto> executionsDtos = new ArrayList<>();
-		for (Execution execution : executions) {
+		for (Execution execution : executions.stream().sorted((e1, e2) -> -e1.getTimestamp().compareTo(e2.getTimestamp())).collect(Collectors.toList())) {
 			executionsDtos.add(ExecutionDto.fromExecution(execution));
 		}
 		return executionsDtos;
@@ -140,7 +142,7 @@ public class AccountController {
 			@PathVariable(value = "orderId") String orderId) {
 		logger.debug("DELETE /" + accountId + "/orders/" + orderId);
 
-		//Account account = validateAndGetPlayer(accountId);
+		// Account account = validateAndGetPlayer(accountId);
 		throw new UnsupportedOperationException();
 	}
 
@@ -168,18 +170,19 @@ public class AccountController {
 		}
 	}
 
-//	private Order validateAndGetAccountOrder(Account account, String id) {
-//		Optional<Order> order;
-//		try {
-//			final int parsedInt = Integer.parseInt(id);
-//			order = account.getOrders().stream().filter(x -> x.getId() == parsedInt).findFirst();
-//		} catch (NumberFormatException e) {
-//			throw new BadRequestException();
-//		}
-//
-//		if (!order.isPresent()) {
-//			throw new EntityNotFoundException(id);
-//		}
-//		return order.get();
-//	}
+	// private Order validateAndGetAccountOrder(Account account, String id) {
+	// Optional<Order> order;
+	// try {
+	// final int parsedInt = Integer.parseInt(id);
+	// order = account.getOrders().stream().filter(x -> x.getId() ==
+	// parsedInt).findFirst();
+	// } catch (NumberFormatException e) {
+	// throw new BadRequestException();
+	// }
+	//
+	// if (!order.isPresent()) {
+	// throw new EntityNotFoundException(id);
+	// }
+	// return order.get();
+	// }
 }

@@ -1,7 +1,5 @@
 package com.maillets.stocksimulation.dto;
 
-import java.time.LocalTime;
-
 import com.maillets.stocksimulation.entities.Execution;
 import com.maillets.stocksimulation.entities.Side;
 
@@ -14,7 +12,7 @@ public class ExecutionDto {
 	private double price;
 	private int orderId;
 	private int accountId;
-	private LocalTime timestamp;
+	private String timestamp;
 	private double commission;
 
 	public int getId() {
@@ -73,11 +71,11 @@ public class ExecutionDto {
 		this.accountId = accountId;
 	}
 
-	public LocalTime getTimestamp() {
+	public String getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(LocalTime timestamp) {
+	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
 
@@ -99,7 +97,7 @@ public class ExecutionDto {
 		dto.setQuantity(execution.getQuantity());
 		dto.setSide(execution.getSide());
 		dto.setSymbol(execution.getSymbol());
-		dto.setTimestamp(execution.getTimestamp());
+		dto.setTimestamp(execution.getTimestamp().toString());
 		return dto;
 	}
 }

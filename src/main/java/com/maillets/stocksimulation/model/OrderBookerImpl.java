@@ -1,6 +1,6 @@
 package com.maillets.stocksimulation.model;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class OrderBookerImpl implements OrderBooker {
 		order.setAvgExecPrice(lastPrice);
 		order.setCanceledQuantity(0);
 		order.setCommissionCharged(commission);
-		order.setCreationTime(LocalTime.now());
+		order.setCreationTime(LocalDateTime.now());
 		order.setFilledQuantity(quantity);
 		order.setLastExecPrice(lastPrice);
 		order.setOpenQuantity(0);
@@ -70,7 +70,7 @@ public class OrderBookerImpl implements OrderBooker {
 		execution.setQuantity(quantity);
 		execution.setSide(dto.getSide());
 		execution.setSymbol(symbol);
-		execution.setTimestamp(LocalTime.now());
+		execution.setTimestamp(LocalDateTime.now());
 		execution = executionRepository.saveAndFlush(execution);
 		account.getExecutions().add(execution);
 

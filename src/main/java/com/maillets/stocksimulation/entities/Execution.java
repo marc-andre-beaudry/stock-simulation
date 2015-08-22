@@ -1,6 +1,6 @@
 package com.maillets.stocksimulation.entities;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,7 +32,7 @@ public class Execution {
 	private double price;
 
 	@Column(nullable = false)
-	private LocalTime timestamp;
+	private LocalDateTime timestamp;
 
 	@Column(nullable = false)
 	private double commission;
@@ -85,11 +85,11 @@ public class Execution {
 		this.price = price;
 	}
 
-	public LocalTime getTimestamp() {
+	public LocalDateTime getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(LocalTime timestamp) {
+	public void setTimestamp(LocalDateTime timestamp) {
 		this.timestamp = timestamp;
 	}
 
