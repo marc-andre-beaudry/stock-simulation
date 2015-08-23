@@ -26,6 +26,8 @@ import com.maillets.stocksimulation.entities.Stock;
 import com.maillets.stocksimulation.entities.StockProfile;
 import com.maillets.stocksimulation.entities.User;
 import com.maillets.stocksimulation.entities.WatchList;
+import com.maillets.stocksimulation.identity.AuthorizationModel;
+import com.maillets.stocksimulation.identity.AuthorizationModelImpl;
 import com.maillets.stocksimulation.model.CommissionModel;
 import com.maillets.stocksimulation.model.CommissionModelImpl;
 import com.maillets.stocksimulation.model.MktDataProvider;
@@ -77,6 +79,11 @@ public class Application {
 	@Bean
 	public CommissionModel commissionModel() {
 		return new CommissionModelImpl();
+	}
+
+	@Bean
+	public AuthorizationModel authorizationModel() {
+		return new AuthorizationModelImpl();
 	}
 
 	@Bean
