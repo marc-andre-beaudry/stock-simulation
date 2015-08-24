@@ -1,5 +1,5 @@
 App.controller('stockController', function($scope, $http, $location,
-		$routeParams, $filter, stockService, watchListService, searchService,
+		$routeParams, $filter, $route, stockService, watchListService, searchService,
 		accountService) {
 
 	if ($routeParams.symbol == undefined || $routeParams.symbol == '') {
@@ -15,6 +15,14 @@ App.controller('stockController', function($scope, $http, $location,
 	$scope.competitors = [];
 	$scope.buyQty = 100;
 	$scope.sellQty = 100;
+	
+	var handleAddOrUpdateOrderSuccess = function(data, status) {
+		$route.reload();
+	};
+	
+	var handleAddOrUpdateOrderError = function(data, status) {
+		$route.reload();
+	};
 
 	$scope.buyStock = function() {
 		var order = {
@@ -23,7 +31,7 @@ App.controller('stockController', function($scope, $http, $location,
 			orderType : "Market",
 			side : "Buy"
 		};
-		accountService.addOrUpdateOrder('1', order);
+		accountService.addOrUpdateOrder('1', order).success(handleAddOrUpdateOrderSuccess).error(handleAddOrUpdateOrderError);
 	}
 
 	$scope.sellStock = function() {
@@ -33,7 +41,7 @@ App.controller('stockController', function($scope, $http, $location,
 			orderType : "Market",
 			side : "Sell"
 		};
-		accountService.addOrUpdateOrder('1', order);
+		accountService.addOrUpdateOrder('1', order).success(handleAddOrUpdateOrderSuccess).error(handleAddOrUpdateOrderError);
 	}
 
 	var handleError = function(data, status) {

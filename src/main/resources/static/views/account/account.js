@@ -1,9 +1,31 @@
 App.controller('accountController', function($scope, $http, $location,
-		$routeParams, accountService) {
+		$routeParams, $route, accountService) {
 	$scope.accounts = [];
 	$scope.positions = [];
 	$scope.orders = [];
 	$scope.executions = [];
+	
+	var handleAddOrUpdateOrderSuccess = function(data, status) {
+		$route.reload();
+	};
+	
+	var handleAddOrUpdateOrderError = function(data, status) {
+		$route.reload();
+	};
+	
+	$scope.closePosition = function(position) {
+		var order = {
+				symbol : position.symbol,
+				openQuantity : Math.abs(position.openQuantity	),
+				orderType : "Market"
+		};
+		if(position.openQuantity > 0) {
+			order.side = "Sell";
+		} else if(position.openQuantity < 0) {
+			order.side = "Buy";
+		}
+		accountService.addOrUpdateOrder('1', order).success(handleAddOrUpdateOrderSuccess).error(handleAddOrUpdateOrderError);
+	};
 
 	var handleGetAccountsSuccess = function(data, status) {
 		$scope.accounts = data;
