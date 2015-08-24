@@ -20,4 +20,7 @@ public interface StockRepository extends JpaRepository<Stock, Integer> {
 	@Query(value = "SELECT s.industry, count(*) FROM stock s where s.sector = ?1 GROUP BY s.industry", nativeQuery = true)
 	public List<Object[]> getCountByIndustryForSector(String sector);
 
+	public List<Stock> findBySector(String sector);
+
+	public List<Stock> findByIndustry(String industry);
 }

@@ -65,6 +65,22 @@ public class MktDataController {
 		}
 	}
 
+	@RequestMapping("/stocks/{symbol}/competitors")
+	public List<StockDto> getCompetitors(@PathVariable(value = "symbol") String symbol) {
+		List<Stock> stocks = stockRepository.findBySymbol(symbol);
+		List<StockDto> dtos = new ArrayList<>();
+		if (stocks.size() == 1) {
+			Stock stock = stocks.get(0);
+			List<Stock> competitors = stockRepository.findByIndustry(stock.getIndustry());
+			for (Stock competitor : competitors) {
+				dtos.add(StockDto.fromStock(competitor));
+			}
+			return dtos;
+		} else {
+			throw new EntityNotFoundException("[" + symbol + "] not found");
+		}
+	}
+
 	@RequestMapping("/stocks/{symbol}/profile")
 	public StockProfileDto getStockProfile(@PathVariable(value = "symbol") String symbol) {
 		List<Stock> stocks = stockRepository.findBySymbol(symbol);

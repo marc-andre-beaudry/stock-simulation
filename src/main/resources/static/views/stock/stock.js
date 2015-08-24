@@ -12,6 +12,7 @@ App.controller('stockController', function($scope, $http, $location,
 	$scope.stockQuote = {};
 	$scope.stockInfo = {};
 	$scope.stockProfile = {};
+	$scope.competitors = [];
 	$scope.buyQty = 100;
 	$scope.sellQty = 100;
 
@@ -84,6 +85,10 @@ App.controller('stockController', function($scope, $http, $location,
 			} ]
 		});
 	};
+	var handleGetCompetitorsSuccess = function(data, status) {
+		$scope.competitors = data;
+	};
+	
 	stockService.getStockSummary($routeParams.symbol).success(
 			handleGetStockSummarySuccess);
 	searchService.getCompany($routeParams.symbol).success(
@@ -93,4 +98,6 @@ App.controller('stockController', function($scope, $http, $location,
 			handleGetEodHistoricalDataSuccess);
 	stockService.getStockProfile($routeParams.symbol).success(
 			handleGetStockProfileSuccess).error(handleError);
+	stockService.getCompetitors($routeParams.symbol).success(
+			handleGetCompetitorsSuccess);
 });

@@ -14,6 +14,9 @@ App.factory('stockService', function($http) {
 		},
 		getMarketCapBySector : function() {
 			return $http.get('/api/mktdata/sector?aggregation=marketCap');
+		},
+		getCompetitors : function(symbol) {
+			return $http.get('/api/mktdata/stocks/' + symbol + '/competitors');
 		}
 	};
 });
