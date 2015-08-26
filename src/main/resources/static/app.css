@@ -2,6 +2,10 @@ body {
 	padding-top: 50px;
 }
 
+.app-name {
+	margin-left:10px;
+}
+
 .starter-template {
 	padding: 40px 15px;
 	text-align: center;
@@ -10,4 +14,38 @@ body {
 .no-gutter>[class*='col-'] {
 	padding-right: 0;
 	padding-left: 0;
+}
+
+.ribbon {
+	background-color: #a00;
+	overflow: hidden;
+	white-space: nowrap;
+	/* top left corner */
+	position: absolute;
+	left: -40px;
+	top: 7px;
+	/* 45 deg ccw rotation */
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	/* shadow */
+	-webkit-box-shadow: 0 0 5px #888;
+	-moz-box-shadow: 0 0 5px #888;
+	box-shadow: 0 0 5px #888;
+}
+
+.ribbon a {
+	overflow: hidden;
+	border: 1px solid #faa;
+	color: #fff;
+	display: block;
+	font: bold 81.25% 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	margin: 1px 0;
+	padding: 1px 50px;
+	text-align: center;
+	text-decoration: none;
+	/* shadow */
+	text-shadow: 0 0 5px #444;
 }
