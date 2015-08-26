@@ -6,6 +6,7 @@ App.controller('searchController', function($scope, $http, $location,
 	$scope.availableStocks = [];
 	$scope.results = [];
 	$scope.totalMatchs = 0;
+	$scope.isLoading = true;
 
 	$scope.updateSearch = function() {
 		$scope.results = [];
@@ -66,11 +67,14 @@ App.controller('searchController', function($scope, $http, $location,
 	var handleGetCompaniesSuccess = function(data, status) {
 		$scope.availableStocks = data;
 		$scope.updateSearch();
+		$scope.isLoading = false;
 	};
 
 	var handleGetWatchListSuccess = function(data, status) {
 		$scope.watchList = data;
 	};
-	searchService.getCompanies().success(handleGetCompaniesSuccess);
+	searchService.getCompanies().success(handleGetCompaniesSuccess).error(function() {
+		$scope.isLoading = false;
+	});
 	watchListService.getWatchList('1').success(handleGetWatchListSuccess);
 });
