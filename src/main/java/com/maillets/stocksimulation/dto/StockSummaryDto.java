@@ -11,6 +11,10 @@ public class StockSummaryDto {
 	private int bidSize;
 	private double askPrice;
 	private int askSize;
+	private double lastPrice;
+	private int lastSize;
+	private double change;
+	private double changePerc;
 	private int volume;
 
 	private double low52week;
@@ -155,5 +159,37 @@ public class StockSummaryDto {
 
 	public void setAvgVolume(int avgVolume) {
 		this.avgVolume = avgVolume;
+	}
+
+	public double getLastPrice() {
+		return lastPrice;
+	}
+
+	public void setLastPrice(double lastPrice) {
+		this.lastPrice = lastPrice;
+	}
+
+	public int getLastSize() {
+		return lastSize;
+	}
+
+	public void setLastSize(int lastSize) {
+		this.lastSize = lastSize;
+	}
+
+	public double getChange() {
+		return change;
+	}
+
+	public void setChange(double change) {
+		this.change = change;
+	}
+
+	public double getChangePerc() {
+		return changePerc;
+	}
+
+	public void setChangePerc(double changePerc) {
+		this.changePerc = changePerc;
 	}
 }

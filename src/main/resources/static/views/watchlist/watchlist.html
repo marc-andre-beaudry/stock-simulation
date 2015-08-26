@@ -9,6 +9,8 @@
 				<th witdh="20%">Name</th>
 				<th witdh="20%">Bid</th>
 				<th witdh="20%">Ask</th>
+				<th witdh="20%">Last</th>
+				<th witdh="20%">Change</th>
 				<th witdh="20%">Volume</th>
 			</tr>
 			<tr ng-repeat='stock in watchList.stocks'>
@@ -16,6 +18,8 @@
 				<td>{{stock.name}}</td>
 				<td>{{stock.stockQuote.bidPrice}} x {{stock.stockQuote.bidSize}}</td>
 				<td>{{stock.stockQuote.askPrice}} x {{stock.stockQuote.askSize}}</td>
+				<td>{{stock.stockQuote.lastPrice}} x {{stock.stockQuote.lastSize}}</td>
+				<td ng-class="{positiveChangeStyle: stock.stockQuote.change>0, negativeChangeStyle: stock.stockQuote.change<0}">{{stock.stockQuote.change}} ({{stock.stockQuote.changePerc}})</td>
 				<td>{{stock.stockQuote.volume}}</td>
 			</tr>
 		</table>

@@ -121,6 +121,10 @@ public class MktDataController {
 		dto.setVolume(454783);
 		dto.setPreviousClose(105.05);
 		dto.setOpen(106.45);
+		dto.setLastPrice(106.50);
+		dto.setLastSize(200);
+		dto.setChangePerc(2.56);
+		dto.setChange(0.56);
 		return dto;
 	}
 
