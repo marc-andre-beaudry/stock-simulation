@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="views/watchlist/watchlist.css">
 	<link rel="stylesheet" href="views/stock/stock.css">
 	<link rel="stylesheet" href="views/explorer/explorer.css">
+	<link rel="stylesheet" href="views/user/users.css">
   </head>
 
   <body ng-app="StockSimulationApp">
@@ -47,7 +48,7 @@
           </ul>
            <ul class="nav navbar-nav navbar-right" ng-controller="loginController">
             <li><div style="padding: 5px;"><button class="btn btn-success btn-block" ng-show="!isLoggedIn" ng-click="login()">Login</button></div></li>
-            <li><div style="padding: 15px;"><span ng-show="isLoggedIn">{{user}}</span></div></li>
+            <li><div style="padding: 15px;"><a href="#user" ng-show="isLoggedIn"><span>{{user}}</span></a></div></li>
           </ul>
         </div>
       </div>
@@ -94,11 +95,13 @@
 	<script src="views/search/search.js"></script>
 	<script src="views/stock/stock.js"></script>
 	<script src="views/explorer/explorer.js"></script>
+	<script src="views/user/user.js"></script>
 	<script src="services/accountService.js"></script>
 	<script src="services/searchService.js"></script>
 	<script src="services/stockService.js"></script>
 	<script src="services/watchListService.js"></script>
 	<script src="services/moversService.js"></script>
+	<script src="services/userService.js"></script>
 	<script src="filters/numberFormatters.js"></script>
   </body>
 </html>

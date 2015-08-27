@@ -1,5 +1,7 @@
 package com.maillets.stocksimulation.entities;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +25,10 @@ public class User {
 
 	@Column(nullable = false)
 	private String lastName;
+	
+	private LocalDate joinDate;
+	
+	private LocalDateTime lastConnect;
 
 	@OneToMany(mappedBy = "owner")
 	private Set<Account> accounts = new HashSet<>();
@@ -57,5 +63,21 @@ public class User {
 
 	public void setAccounts(Set<Account> accounts) {
 		this.accounts = accounts;
+	}
+
+	public LocalDate getJoinDate() {
+		return joinDate;
+	}
+
+	public void setJoinDate(LocalDate joinDate) {
+		this.joinDate = joinDate;
+	}
+
+	public LocalDateTime getLastConnect() {
+		return lastConnect;
+	}
+
+	public void setLastConnect(LocalDateTime lastConnect) {
+		this.lastConnect = lastConnect;
 	}
 }

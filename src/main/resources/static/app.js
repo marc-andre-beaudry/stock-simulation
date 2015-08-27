@@ -32,6 +32,10 @@ App.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'views/explorer/explorer.html',
 		controller : 'explorerController'
 	});
+	$routeProvider.when('/user', {
+		templateUrl : 'views/user/user.html',
+		controller : 'userController'
+	});
 	$routeProvider.otherwise({
 		redirectTo : '/home'
 	});

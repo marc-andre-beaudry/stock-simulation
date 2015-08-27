@@ -1,5 +1,7 @@
 package com.maillets.stocksimulation;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -143,6 +145,8 @@ public class Application {
 				User user = new User();
 				user.setFirstName("Marc-Andre");
 				user.setLastName("Beaudry");
+				user.setJoinDate(LocalDate.of(2015, 1, 1));
+				user.setLastConnect(LocalDateTime.now());
 				user = userRepository.saveAndFlush(user);
 
 				Account account = new Account();
