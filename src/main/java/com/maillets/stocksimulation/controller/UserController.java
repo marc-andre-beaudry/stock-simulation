@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.maillets.stocksimulation.dto.UserDto;
 import com.maillets.stocksimulation.entities.User;
-import com.maillets.stocksimulation.identity.AuthorizationModel;
 import com.maillets.stocksimulation.repository.UserRepository;
 
 @RestController
@@ -21,17 +20,9 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
-	private AuthorizationModel authorizationModel;
-
 	@RequestMapping(value = "", method = { RequestMethod.GET })
 	public UserDto getAccounts() {
 		logger.debug("GET /");
-
-		//String userId = authorizationModel.getUserId();
-		//if (userId == null) {
-		//	return null;
-		//}
 
 		User user = userRepository.findAll().get(0);
 		UserDto userDto = UserDto.fromUser(user);

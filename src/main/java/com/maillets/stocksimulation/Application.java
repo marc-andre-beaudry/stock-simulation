@@ -184,15 +184,10 @@ public class Application {
 				watchList.setUser(user);
 				watchList.getStocks().addAll(top100Stocks.stream().limit(10).collect(Collectors.toList()));
 				watchListRepository.saveAndFlush(watchList);
-
-				// RestTemplate template = new RestTemplate();
-				// StockQuote obj =
-				// template.getForObject("http://dev.markitondemand.com/Api/v2/Quote/json?symbol=AAPL",
-				// StockQuote.class);
+				
 			} catch (Exception e) {
 				logger.error(e.getMessage(), e);
 			}
-
 			logger.info("Init done!");
 		};
 	}

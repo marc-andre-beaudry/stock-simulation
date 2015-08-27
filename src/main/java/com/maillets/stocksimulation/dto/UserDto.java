@@ -1,8 +1,5 @@
 package com.maillets.stocksimulation.dto;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import com.maillets.stocksimulation.entities.User;
 
 public class UserDto {
